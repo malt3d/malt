@@ -9,8 +9,8 @@
 class transform : public malt::component
 {
 public:
-
     float x, y, z;
+
     void translate(float dx, float dy, float dz);
 };
 

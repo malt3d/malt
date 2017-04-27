@@ -36,7 +36,6 @@ namespace malt
 
         template <class T>
         friend class game;
-
         friend entity_id detail::get_id(const entity& e);
 
     public:
@@ -60,12 +59,4 @@ namespace malt
             impl::msg_delivery<MsgT(ArgTs...)>::deliver(id, MsgT{}, args...);
         }
     };
-
-    namespace detail
-    {
-        inline entity_id get_id(const entity& e)
-        {
-            return e.id;
-        }
-    }
 }
