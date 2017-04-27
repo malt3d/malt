@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <malt/entity.hpp>
+#include <iostream>
 
 namespace malt
 {
@@ -26,7 +27,8 @@ namespace malt
     {
         priv->components.emplace_back();
         priv->components.back().e = entity(id);
-        return &priv->components.back();
+        auto res = &priv->components.back();
+        return res;
     }
 
     template <class CompT>

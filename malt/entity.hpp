@@ -46,13 +46,13 @@ namespace malt
         template <class T>
         T* get_component()
         {
-            impl::component_adapter<T>::get_mgr().get_component(id);
+            return impl::component_adapter<T>::get_mgr().get_component(id);
         }
 
         template <class T>
         T* add_component()
         {
-            impl::component_adapter<T>::get_mgr().add_component(id);
+            return impl::component_adapter<T>::get_mgr().add_component(id);
         }
 
         template <class MsgT, class... ArgTs>

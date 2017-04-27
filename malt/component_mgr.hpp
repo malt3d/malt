@@ -26,6 +26,7 @@ namespace malt
         void deliver(std::true_type, entity_id id, MsgT, Args&&... args)
         {
             auto cmp = get_component(id);
+            if (!cmp) return;
             cmp->Handle(MsgT{}, std::forward<Args>(args)...);
         };
 

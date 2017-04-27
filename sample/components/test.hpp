@@ -10,7 +10,7 @@
 class test_component : public malt::component
 {
 public:
-    int data = 8;
+    int data;
     void Handle(int);
 };
 

@@ -18,7 +18,6 @@ namespace malt
     template <class MsgT, class... Args>
     void game<T>::deliver(entity_id id, MsgT, const Args& ... args)
     {
-        print(args...);
         mp::for_each(module_ts{}, [id, &args...](auto* module)
         {
             using module_t = std::remove_pointer_t<decltype(module)>;
