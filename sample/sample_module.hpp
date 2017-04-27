@@ -13,5 +13,3 @@ struct sample_module_def
 {
     using components = malt::mp::list<class simple, class test_component>;
 };
-
-using sample_module = malt::module<sample_module_def>;

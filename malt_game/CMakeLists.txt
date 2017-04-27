@@ -10,3 +10,4 @@ target_include_directories(malt_game PUBLIC "../")
 
 target_link_libraries(malt_game malt_core)
 target_link_libraries(malt_game malt_sample)
+target_link_libraries(malt_game malt_basic)

@@ -5,6 +5,7 @@
 
 #include <sample/components/test.hpp>
 #include <sample/components/simple.hpp>
+#include <malt_basic/components/transform.hpp>
 
 int main()
 {
@@ -13,6 +14,13 @@ int main()
     e.add_component<simple>();
 
     e.add_component<test_component>()->data = 5;
+
+    e.add_component<transform>();
+
+    e.get_component<transform>()->x = 3;
+    e.get_component<transform>()->translate(1, 2, 3);
+
+    std::cout << e.get_component<transform>()->x << '\n';
 
     e.deliver_message(int{});
 

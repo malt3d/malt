@@ -3,4 +3,5 @@ project(malt)
 
 add_subdirectory(malt)
 add_subdirectory(sample)
+add_subdirectory(malt_basic)
 add_subdirectory(malt_game)

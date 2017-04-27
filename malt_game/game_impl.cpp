@@ -4,16 +4,17 @@
 
 #include <malt/game.cpp>
 #include <malt_game/game_impl.hpp>
+
+#include <sample/sample_module.hpp>
+
 #include <sample/components/test.hpp>
 #include <sample/components/simple.hpp>
 
-MALT_IMPLEMENT_GAME(game_config);
-  void print() {}
-    template <class T, class... Ts>
-    void print(const T& a, const Ts&...)
-    {
-        std::cout << a << '\n';
-    };
+#include <malt_basic/basic_module.hpp>
+#include <malt_basic/components/transform.hpp>
+
+MALT_IMPLEMENT_GAME(game_config)
+
 malt::game<game_config> g;
 namespace malt
 {
@@ -38,6 +39,8 @@ namespace malt
 
         template struct component_adapter<simple>;
         template struct component_adapter<test_component>;
+
+        template struct component_adapter<transform>;
     }
 }
 

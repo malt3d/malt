@@ -3,7 +3,6 @@
 //
 
 #include "sample_module.hpp"
-
 #include <malt/module.cpp>
 
 MALT_IMPLEMENT_MODULE(sample_module_def)

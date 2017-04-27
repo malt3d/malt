@@ -9,9 +9,8 @@
 
 struct game_config
 {
-    using module_defs = malt::mp::list<struct sample_module_def>;
+    using module_defs = malt::mp::list<struct basic_module_def, struct sample_module_def>;
     using modules = malt::mp::map_t<malt::mp::mapper<malt::module>, module_defs>;
 };
 
 extern malt::game<game_config> g;
-
