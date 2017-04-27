@@ -10,7 +10,6 @@ namespace malt
     template<class MsgT, class... Args>
     void game<T>::deliver(entity_id id, MsgT, Args&& ...)
     {
-
     }
 
     template <class T>
