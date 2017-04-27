@@ -7,7 +7,7 @@
 
 #include <malt/component.hpp>
 
-class simple : malt::component
+class simple : public malt::component
 {
 };
 

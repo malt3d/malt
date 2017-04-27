@@ -5,6 +5,7 @@
 #pragma once
 
 #include <malt/malt_fwd.hpp>
+#include <memory>
 
 namespace malt
 {
@@ -14,9 +15,12 @@ namespace malt
     template <class CompT>
     class component_mgr
     {
+        std::unique_ptr<comp_mgr_priv<CompT>> priv;
     public:
         component_mgr();
-        CompT* get_component(int id);
+        ~component_mgr();
+        CompT* get_component(entity_id id);
+        CompT* add_component(entity_id id);
     };
 }
 

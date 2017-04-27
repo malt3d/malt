@@ -12,7 +12,16 @@ namespace malt
     class component
     {
         entity e;
+
+        template <class T>
+        friend class game;
+
+        template <class T>
+        friend class component_mgr;
+
+
     public:
+        component() = default;
         entity get_entity() const;
     };
 }

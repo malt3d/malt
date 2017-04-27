@@ -7,6 +7,7 @@
 
 #include <malt/component.hpp>
 
+struct render{};
 class test_component : public malt::component
 {
 public:

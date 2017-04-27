@@ -10,4 +10,6 @@ namespace malt
 
     template <class> class component_mgr;
     template <class> class module;
+
+    template <class> class game;
 }

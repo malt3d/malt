@@ -7,9 +7,10 @@
 #include <malt/component_mgr.cpp>
 #include <sample/sample_module.hpp>
 
+
 void test_component::Handle(int)
 {
-    get_entity().deliver_message(3);
+    get_entity().deliver_message(render{}, 16.6f);
     std::cout << "hello world\n";
 }
 
