@@ -7,7 +7,7 @@
 #include <malt/game.hpp>
 #include <malt/list.hpp>
 
-class game_config
+struct game_config
 {
     using module_defs = malt::mp::list<struct sample_module_def>;
     using modules = malt::mp::map_t<malt::mp::mapper<malt::module>, module_defs>;

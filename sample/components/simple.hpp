@@ -2,13 +2,15 @@
 // Created by fatih on 4/27/17.
 //
 
-#ifndef MALT_OVERALL_SIMPLE_HPP
-#define MALT_OVERALL_SIMPLE_HPP
+#pragma once
 
+#include <malt/component.hpp>
 #include <sample/sample_module.hpp>
 
-class simple : public sample_module::component_t
+
+class simple : public malt::component
 {
+public:
+    void Handle(render, float dt);
 };
 
-#endif //MALT_OVERALL_SIMPLE_HPP

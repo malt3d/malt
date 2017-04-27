@@ -5,8 +5,6 @@
 #include "test.hpp"
 #include <iostream>
 #include <malt/component_mgr.cpp>
-#include <sample/sample_module.hpp>
-
 
 void test_component::Handle(int)
 {

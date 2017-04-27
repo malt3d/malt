@@ -7,6 +7,8 @@
 #include <malt/list.hpp>
 #include <malt/module.hpp>
 
+struct render{};
+
 struct sample_module_def
 {
     using components = malt::mp::list<class simple, class test_component>;

@@ -7,8 +7,7 @@
 
 #include <sample/sample_module.hpp>
 
-struct render{};
-class test_component : public sample_module::component_t
+class test_component : public malt::component
 {
 public:
     int data = 8;

@@ -12,15 +12,18 @@ namespace malt
 {
     namespace impl
     {
-        template <class T> extern T* get_component(entity_id id);
-        template <class T> T* add_component(entity_id id);
+        template <class CompT>
+        struct component_adapter
+        {
+            static component_mgr<CompT>& get_mgr();
+        };
 
         template <class MsgT, class... Args> struct msg_delivery;
 
         template <class MsgT, class... Args>
         struct msg_delivery<MsgT(Args...)>
         {
-            static void deliver(malt::entity_id id, MsgT, Args&&... args);
+            static void deliver(malt::entity_id id, MsgT, const Args&... args);
         };
     }
     namespace detail {
@@ -43,20 +46,18 @@ namespace malt
         template <class T>
         T* get_component()
         {
-            using module_t = typename T::module_t;
-            return module_t:: template get_mgr<T>().get_component(id);
+            impl::component_adapter<T>::get_mgr().get_component(id);
         }
 
         template <class T>
         T* add_component()
         {
-            using module_t = typename T::module_t;
-            return module_t:: template get_mgr<T>().add_component(id);
+            impl::component_adapter<T>::get_mgr().add_component(id);
         }
 
         template <class MsgT, class... ArgTs>
-        void deliver_message(MsgT, ArgTs&&... args){
-            malt::impl::msg_delivery<MsgT(ArgTs...)>::deliver(id, MsgT{}, std::forward<ArgTs>(args)...);
+        void deliver_message(MsgT, const ArgTs&... args){
+            impl::msg_delivery<MsgT(ArgTs...)>::deliver(id, MsgT{}, args...);
         }
     };
 

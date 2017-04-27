@@ -117,10 +117,10 @@ namespace mp
     };
 
     template <class F>
-    constexpr void for_each(list<>, F) {}
+    constexpr void for_each(list<>, const F&) {}
 
     template <class... Ts, class F, class List = list<Ts...>>
-    constexpr void for_each(List, F f)
+    constexpr void for_each(List, const F& f)
     {
         f(static_cast<front_t<List>*>(nullptr));
         for_each(tail_t<List>(), f);

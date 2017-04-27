@@ -24,5 +24,8 @@ namespace malt
         component() = default;
         entity get_entity() const;
     };
+
+    template <class T>
+    struct component_traits;
 }
 
