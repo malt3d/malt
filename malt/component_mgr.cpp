@@ -15,12 +15,15 @@ namespace malt
         return nullptr;
     }
 
-    template <class CompT>
-    CompT* get_component(entity_id id){
-        return (CompT*)3;
+    namespace impl
+    {
+        template <class CompT>
+        CompT* get_component(malt::entity_id id){
+            return (CompT*)3;
+        }
     }
 }
 
 #define MALT_IMPLEMENT_COMP(COMPT) \
     template class malt::component_mgr<COMPT>; \
-    template COMPT* malt::get_component<COMPT>(malt::entity_id id);
+    template COMPT* malt::impl::get_component<COMPT>(malt::entity_id id);

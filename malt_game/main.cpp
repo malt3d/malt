@@ -9,11 +9,18 @@
 malt::component_mgr<test_component> test_mgr;
 malt::component_mgr<simple> simple_mgr;
 
+/*template <>
+void malt::entity::deliver_message<int>(int x)
+{
+    std::cout << "hello " << x << '\n';
+}*/
+
 int main()
 {
     malt::entity e;
     std::cout << e.get_component<simple>() << '\n';
     e.get_component<test_component>()->Handle(3);
+    e.deliver_message(3);
 
     test_mgr.get_component(3);
     simple_mgr.get_component(0);

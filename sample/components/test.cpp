@@ -9,7 +9,7 @@
 
 void test_component::Handle(int)
 {
-    get_entity().get_component<simple>();
+    get_entity().deliver_message(3);
     std::cout << "hello world\n";
 }
 

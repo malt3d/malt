@@ -8,7 +8,11 @@
 
 namespace malt
 {
-    template <class T> T* get_component(entity_id id);
+    namespace impl
+    {
+        template <class T> extern T* get_component(entity_id id) __attribute__((weak));
+        template <class T> extern void  __attribute__((weak)) deliver_msg(T, entity_id id);
+    }
 
     class entity
     {
@@ -17,7 +21,12 @@ namespace malt
         template <class T>
         T* get_component()
         {
-            return malt::get_component<T>(id);
+            return malt::impl::get_component<T>(id);
+        }
+
+        template <class MsgT>
+        void deliver_message(MsgT){
+            malt::impl::deliver_msg(MsgT{}, id);
         }
     };
 }
