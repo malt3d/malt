@@ -3,7 +3,7 @@ project(malt)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp game_impl.cpp game_impl.hpp)
 add_executable(malt_game ${SOURCE_FILES})
 
 target_include_directories(malt_game PUBLIC "../")

@@ -11,7 +11,7 @@
 void test_component::Handle(int)
 {
     get_entity().deliver_message(render{}, 16.6f);
-    std::cout << "hello world\n";
+    std::cout << "hello world" << data << "\n";
 }
 
 MALT_IMPLEMENT_COMP(test_component)

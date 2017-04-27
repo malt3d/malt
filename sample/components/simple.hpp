@@ -5,9 +5,9 @@
 #ifndef MALT_OVERALL_SIMPLE_HPP
 #define MALT_OVERALL_SIMPLE_HPP
 
-#include <malt/component.hpp>
+#include <sample/sample_module.hpp>
 
-class simple : public malt::component
+class simple : public sample_module::component_t
 {
 };
 

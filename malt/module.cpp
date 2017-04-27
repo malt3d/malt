@@ -6,13 +6,8 @@
 
 namespace malt
 {
-    template <class T>
-    template<class CompT>
-    CompT* module<T>::get_component(int id)
-    {
-        return nullptr;
-    }
+    template <class T> typename module<T>::component_mgr_tuples module<T>::comp_mgrs;
 }
 
-#define MALT_IMPLEMENT_MODULE(MODULET) \
-    template class malt::module<MODULET>;
+#define MALT_IMPLEMENT_MODULE(MODULE_DEF_T) \
+    template class malt::module<MODULE_DEF_T>;

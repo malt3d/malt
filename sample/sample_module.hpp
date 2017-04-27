@@ -4,13 +4,12 @@
 
 #pragma once
 
-#include <malt/message.hpp>
+#include <malt/list.hpp>
+#include <malt/module.hpp>
 
-template <class...>
-struct list;
-
-class sample_module
+struct sample_module_def
 {
-    using public_comps = list<class simple, class test_component>;
-    using messages = list<malt::message<struct render()>>;
+    using components = malt::mp::list<class simple, class test_component>;
 };
+
+using sample_module = malt::module<sample_module_def>;

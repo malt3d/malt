@@ -4,6 +4,8 @@
 
 #include <malt/component_mgr.hpp>
 #include <vector>
+#include <algorithm>
+#include <malt/entity.hpp>
 
 namespace malt
 {
@@ -15,7 +17,9 @@ namespace malt
     };
 
     template <class CompT>
-    component_mgr<CompT>::component_mgr() {}
+    component_mgr<CompT>::component_mgr() :
+        priv(std::make_unique<comp_mgr_priv<CompT>>())
+    {}
 
     template <class CompT>
     CompT* component_mgr<CompT>::add_component(entity_id id)
@@ -28,21 +32,17 @@ namespace malt
     template <class CompT>
     CompT* component_mgr<CompT>::get_component(entity_id id)
     {
-        return nullptr;
+        auto res = std::find_if(priv->components.begin(), priv->components.end(), [&id](const CompT& c)
+        {
+            return detail::get_id(c.e) == id;
+        });
+
+        return res != priv->components.end() ? &(*res) : nullptr;
     }
 
     template <class CompT>
     component_mgr<CompT>::~component_mgr() = default;
-
-    namespace impl
-    {
-        template <class CompT>
-        CompT* get_component(malt::entity_id id){
-            return nullptr;
-        }
-    }
 }
 
 #define MALT_IMPLEMENT_COMP(COMPT) \
-    template class malt::component_mgr<COMPT>; \
-    template COMPT* malt::impl::get_component<COMPT>(malt::entity_id id);
+    template class malt::component_mgr<COMPT>;
