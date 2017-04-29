@@ -14,7 +14,6 @@ namespace malt
     class comp_mgr_priv
     {
     public:
-        std::vector<CompT> components;
     };
 
     template <class CompT>
@@ -25,21 +24,21 @@ namespace malt
     template <class CompT>
     CompT* component_mgr<CompT>::add_component(entity_id id)
     {
-        priv->components.emplace_back();
-        priv->components.back().e = entity(id);
-        auto res = &priv->components.back();
+        comps.emplace_back();
+        comps.back().e = entity(id);
+        auto res = &comps.back();
         return res;
     }
 
     template <class CompT>
     CompT* component_mgr<CompT>::get_component(entity_id id)
     {
-        auto res = std::find_if(priv->components.begin(), priv->components.end(), [&id](const CompT& c)
+        auto res = std::find_if(comps.begin(), comps.end(), [&id](const CompT& c)
         {
             return detail::get_id(c.e) == id;
         });
 
-        return res != priv->components.end() ? &(*res) : nullptr;
+        return res != comps.end() ? &(*res) : nullptr;
     }
 
     template <class CompT>

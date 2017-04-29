@@ -26,6 +26,12 @@ namespace malt
             g.deliver(id, MsgT{}, args...);
         };
 
+        template <class MsgT, class... Args>
+        void msg_delivery<MsgT(Args...)>::broadcast(MsgT, const Args& ... args)
+        {
+            g.broadcast(MsgT{}, args...);
+        }
+
         template <class CompT>
         component_mgr<CompT>& component_adapter<CompT>::get_mgr()
         {

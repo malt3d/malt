@@ -22,7 +22,10 @@ int main()
 
     std::cout << e.get_component<transform>()->x << '\n';
 
-    e.deliver_message(int{});
+    //g.broadcast(render{});
+    g.broadcast(int{});
+
+    //e.deliver_message(int{});
 
     return 0;
 }

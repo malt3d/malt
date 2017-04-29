@@ -33,6 +33,9 @@ namespace malt
         template <class MsgT, class... Args>
         void deliver(malt::entity_id id, MsgT, const Args&...);
 
+        template <class MsgT, class... Args>
+        void broadcast(MsgT, const Args&...);
+
         entity create_entity();
 
         template <class CompT>

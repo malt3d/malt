@@ -24,6 +24,7 @@ namespace malt
         struct msg_delivery<MsgT(Args...)>
         {
             static void deliver(malt::entity_id id, MsgT, const Args&... args);
+            static void broadcast(MsgT, const Args&... args);
         };
     }
     namespace detail {

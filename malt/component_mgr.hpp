@@ -7,6 +7,7 @@
 #include <malt/malt_fwd.hpp>
 #include <memory>
 #include <malt/component_traits.hpp>
+#include <vector>
 
 namespace malt
 {
@@ -18,6 +19,7 @@ namespace malt
     class component_mgr
     {
         std::unique_ptr<comp_mgr_priv<CompT>> priv;
+        std::vector<CompT> comps;
 
         template <class>
         friend class game;
@@ -31,7 +33,19 @@ namespace malt
         };
 
         template <class MsgT, class... Args>
+        void broadcast_impl(std::true_type, MsgT, Args&&... args)
+        {
+            for (auto& c : comps)
+            {
+                c.Handle(MsgT{}, std::forward<Args>(args)...);
+            }
+        };
+
+        template <class MsgT, class... Args>
         void deliver(std::false_type, entity_id, MsgT, Args&&... args){};
+
+        template <class MsgT, class... Args>
+        void broadcast_impl(std::false_type, MsgT, Args&&... args){};
 
     public:
         component_mgr();
@@ -43,6 +57,12 @@ namespace malt
         void deliver(entity_id id, MsgT, Args&&... args)
         {
             deliver(can_handle<MsgT(Args...)>::template value<CompT>(), id, MsgT{}, std::forward<Args>(args)...);
+        };
+
+        template <class MsgT, class... Args>
+        void broadcast(MsgT, Args&&... args)
+        {
+            broadcast_impl(can_handle<MsgT(Args...)>::template value<CompT>(), MsgT{}, std::forward<Args>(args)...);
         };
     };
 }
