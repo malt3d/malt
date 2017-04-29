@@ -15,6 +15,5 @@ public:
     void Handle(malt::start);
     void Handle(malt::update);
     void Handle(malt::destruct);
-    void Handle(render, float dt);
 };
 

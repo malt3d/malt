@@ -6,12 +6,14 @@
 #include <malt_game/game_impl.hpp>
 
 #include <sample/sample_module.hpp>
-
 #include <sample/components/test.hpp>
 #include <sample/components/simple.hpp>
 
 #include <malt_basic/basic_module.hpp>
 #include <malt_basic/components/transform.hpp>
+
+#include <malt_render/render_module.hpp>
+#include <malt_render/components/mesh_renderer.hpp>
 
 MALT_IMPLEMENT_GAME(game_config)
 
@@ -56,6 +58,7 @@ namespace malt
 
         template struct msg_delivery<int()>;
         template struct msg_delivery<int(int)>;
+        template struct msg_delivery<render()>;
         template struct msg_delivery<render(float)>;
         template struct msg_delivery<render(float, double)>;
         template struct msg_delivery<malt::init()>;
@@ -64,6 +67,9 @@ namespace malt
         template struct component_adapter<test_component>;
 
         template struct component_adapter<transform>;
+
+        template struct component_adapter<mesh_renderer>;
+        template struct component_adapter<material>;
     }
 }
 

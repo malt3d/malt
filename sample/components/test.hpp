@@ -5,7 +5,7 @@
 #ifndef MALT_OVERALL_TEST_HPP
 #define MALT_OVERALL_TEST_HPP
 
-#include <sample/sample_module.hpp>
+#include <malt/component.hpp>
 
 class test_component : public malt::component
 {

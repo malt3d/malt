@@ -52,7 +52,7 @@ namespace malt
             mp::for_each(typename module_t::component_ts{}, [&](auto* comp)
             {
                 using comp_t = std::remove_pointer_t<decltype(comp)>;
-                get_mgr<comp_t>().synchronize();
+                this->get_mgr<comp_t>().synchronize();
             });
         });
     }

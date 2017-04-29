@@ -6,11 +6,6 @@
 #include <malt/component_mgr.cpp>
 #include <iostream>
 
-void simple::Handle(render, float dt)
-{
-    std::cout << "dt is : " << dt << '\n';
-}
-
 void simple::Handle(malt::init)
 {
     std::cout << "hello world\n";
