@@ -42,6 +42,20 @@ namespace malt
     {
         return entity(next++);
     }
+
+    template <class T>
+    void game<T>::synchronize()
+    {
+        mp::for_each(module_ts{}, [this](auto* module)
+        {
+            using module_t = std::remove_pointer_t<decltype(module)>;
+            mp::for_each(typename module_t::component_ts{}, [&](auto* comp)
+            {
+                using comp_t = std::remove_pointer_t<decltype(comp)>;
+                get_mgr<comp_t>().synchronize();
+            });
+        });
+    }
 }
 
 #define MALT_IMPLEMENT_GAME(GAME_T) \

@@ -3,7 +3,8 @@ project(malt)
 
 set(CMAKE_CXX_STANDARD 14)
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+message(STATUS "${CMAKE_CXX_COMPILER_ID}")
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
     set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
 endif()
 

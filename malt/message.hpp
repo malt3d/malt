@@ -10,4 +10,7 @@ namespace malt
     using awake = init;
 
     struct start{};
+
+    struct update{};
+    struct destruct{};
 }

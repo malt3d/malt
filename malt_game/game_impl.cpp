@@ -38,15 +38,27 @@ namespace malt
             return g.get_mgr<CompT>();
         }
 
+        template <class CompT>
+        void component_adapter<CompT>::destroy(CompT* c)
+        {
+            g.destroy_comp(c);
+        }
+
         entity create_entity()
         {
             return g.create_entity();
+        }
+
+        void post_frame()
+        {
+            g.synchronize();
         }
 
         template struct msg_delivery<int()>;
         template struct msg_delivery<int(int)>;
         template struct msg_delivery<render(float)>;
         template struct msg_delivery<render(float, double)>;
+        template struct msg_delivery<malt::init()>;
 
         template struct component_adapter<simple>;
         template struct component_adapter<test_component>;

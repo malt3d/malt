@@ -38,6 +38,15 @@ namespace malt
 
         entity create_entity();
 
+        void synchronize();
+
+        template <class CompT>
+        void destroy_comp(CompT* c)
+        {
+            if (!c) return;
+            get_mgr<CompT>().remove_component(c);
+        }
+
         template <class CompT>
         component_mgr<CompT>& get_mgr()
         {

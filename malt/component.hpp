@@ -13,7 +13,7 @@ namespace malt
     class component
     {
         entity m_e;
-        bool m_enabled;
+        bool m_enabled = true;
 
         template <class T>
         friend class game;
@@ -24,22 +24,15 @@ namespace malt
 
     public:
         component() = default;
+        component(const component&) = delete;
+        component(component&&) = default;
         entity get_entity() const;
 
-        void Handle(init){}
-        void Handle(start){}
+        component& operator=(const component&) = delete;
+        component& operator=(component&&) = default;
 
         bool is_enabled() const { return m_enabled; }
-        bool set_enabled(bool active) { m_enabled = active; }
-    };
-
-    template <class T>
-    struct component_traits;
-
-    template <class CompT, class MsgT, class... ArgT>
-    bool dispatch(CompT* comp, MsgT, ArgT&&... args)
-    {
-        
+        void set_enabled(bool active) { m_enabled = active; }
     };
 }
 

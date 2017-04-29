@@ -15,6 +15,7 @@ namespace malt
         struct component_adapter
         {
             static component_mgr<CompT>& get_mgr();
+            static void destroy(CompT*);
         };
 
         template <class MsgT, class... Args> struct msg_delivery;
@@ -27,6 +28,8 @@ namespace malt
         };
 
         entity create_entity();
+
+        void post_frame();
     }
 
     template <class MsgT, class... Args>
@@ -36,6 +39,13 @@ namespace malt
 
     inline entity create_entity() {
         return impl::create_entity();
+    }
+
+    template <class CompT>
+    void destroy(CompT comp)
+    {
+        using elem_t = typename std::iterator_traits<CompT>::value_type;
+        impl::component_adapter<elem_t>::destroy(&(*comp));
     }
 }
 

@@ -8,9 +8,7 @@
 #include <malt/component_mgr.hpp>
 
 namespace malt {
-    namespace detail {
-        entity_id get_id(const entity& e);
-    }
+
 
     class entity
     {

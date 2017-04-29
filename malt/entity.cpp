@@ -12,6 +12,5 @@ namespace malt
         {
             return e.id;
         }
-
     }
 }

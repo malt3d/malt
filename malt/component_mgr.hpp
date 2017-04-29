@@ -8,6 +8,8 @@
 #include <memory>
 #include <malt/component_traits.hpp>
 #include <vector>
+#include <malt_util/buffer.hpp>
+#include <malt/utilities.hpp>
 
 namespace malt
 {
@@ -17,8 +19,13 @@ namespace malt
     template <class CompT>
     class component_mgr
     {
-        std::unique_ptr<comp_mgr_priv<CompT>> priv;
+        /*
+         * we maintain 2 parallel component containers
+         * newly added components are put into the aside container
+         * this allows us to prevent any iterator invalidation during a frame
+         */
         std::vector<CompT> comps;
+        std::vector<CompT> aside; //TODO: use malt::buffer
 
         template <class>
         friend class game;
@@ -36,6 +43,18 @@ namespace malt
         {
             for (auto& c : comps)
             {
+                if (!detail::get_id(c.get_entity()))
+                {
+                    continue;
+                }
+                c.Handle(MsgT{}, std::forward<Args>(args)...);
+            }
+            for (auto& c : aside)
+            {
+                if (!detail::get_id(c.get_entity()))
+                {
+                    continue;
+                }
                 c.Handle(MsgT{}, std::forward<Args>(args)...);
             }
         };
@@ -46,11 +65,15 @@ namespace malt
         template <class MsgT, class... Args>
         void broadcast_impl(std::false_type, MsgT, Args&&... args){};
 
+        void synchronize();
+
     public:
         component_mgr();
         ~component_mgr();
         CompT* get_component(entity_id id);
         CompT* add_component(entity_id id);
+
+        void remove_component(CompT* c);
 
         template <class MsgT, class... Args>
         void deliver(entity_id id, MsgT, Args&&... args)
