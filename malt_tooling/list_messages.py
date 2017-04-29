@@ -36,5 +36,4 @@ def run_objdump(lib_file):
     return list(filter(lambda x : not x is None, lines))
 
 for (msg, args) in (run_objdump(sys.argv[1])):
-    t = '{}({})'.format(msg, ", ".join(args))
-    print (t)
+    print('{}({})'.format(msg, ", ".join(args)))

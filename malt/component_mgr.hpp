@@ -14,7 +14,6 @@ namespace malt
     template <class CompT>
     class comp_mgr_priv;
 
-
     template <class CompT>
     class component_mgr
     {

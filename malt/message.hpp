@@ -2,8 +2,12 @@
 // Created by fatih on 4/27/17.
 //
 
+#pragma once
+
 namespace malt
 {
-    template <class MsgT, class... Args> struct message;
-    template <class MsgT, class... Args> struct message<MsgT(Args...)> {};
+    struct init{};
+    using awake = init;
+
+    struct start{};
 }

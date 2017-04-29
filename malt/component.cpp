@@ -5,4 +5,4 @@
 #include <malt/component.hpp>
 
 malt::entity malt::component::get_entity() const
-{ return e; }
+{ return m_e; }
