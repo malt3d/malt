@@ -7,13 +7,6 @@
 
 namespace malt
 {
-    void print() {}
-    template <class T, class... Ts>
-    void print(const T& a, const Ts&...)
-    {
-        std::cout << a << '\n';
-    };
-
     template <class T>
     template <class MsgT, class... Args>
     void game<T>::deliver(entity_id id, MsgT, const Args& ... args)

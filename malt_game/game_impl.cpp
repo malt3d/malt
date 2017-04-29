@@ -38,6 +38,11 @@ namespace malt
             return g.get_mgr<CompT>();
         }
 
+        entity create_entity()
+        {
+            return g.create_entity();
+        }
+
         template struct msg_delivery<int()>;
         template struct msg_delivery<int(int)>;
         template struct msg_delivery<render(float)>;

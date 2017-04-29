@@ -3,7 +3,7 @@ project(malt)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
+#set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
 
 set(SOURCE_FILES components/simple.cpp components/simple.hpp sample_module.cpp sample_module.hpp components/test.cpp components/test.hpp)
 add_library(malt_sample SHARED ${SOURCE_FILES})
