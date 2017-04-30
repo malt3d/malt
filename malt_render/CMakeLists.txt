@@ -15,7 +15,9 @@ endif()
 set(SOURCE_FILES components/mesh_renderer.cpp components/mesh_renderer.hpp render_module.cpp render_module.hpp
         render_global.cpp render_global.hpp messages.hpp components/material.cpp components/material.hpp
         components/render_test.cpp components/render_test.h components/lights/directional_light.cpp
-        components/lights/directional_light.hpp components/lights/point_light.cpp components/lights/point_light.hpp render_ctx.hpp)
+        components/lights/directional_light.hpp components/lights/point_light.cpp components/lights/point_light.hpp
+        render_ctx.hpp
+        components/camera.cpp components/camera.hpp)
 add_library(malt_render SHARED ${SOURCE_FILES})
 
 set_target_properties(malt_render PROPERTIES POSITION_INDEPENDENT_CODE ON)
