@@ -16,8 +16,24 @@
 #include <malt_render/render_global.hpp>
 #include <malt_render/components/render_test.h>
 
+#include <malt_basic/input.hpp>
+
+static std::chrono::milliseconds dt;
+
+namespace malt
+{
+namespace time
+{
+    std::chrono::milliseconds get_delta_time()
+    {
+        return dt;
+    }
+}
+}
+
 int main()
 {
+    using namespace std::chrono_literals;
     render_mod mod;
     mod.init();
 
@@ -28,13 +44,24 @@ int main()
 
     e.add_component<render_test>();
 
-    auto b = std::chrono::high_resolution_clock::now();
+    using clock = std::chrono::high_resolution_clock;
+
+    auto b = clock::now();
+    auto prev_frame = clock::now() - 16ms;
+
     int f = 0;
     while (!malt::is_terminated())
     {
+        dt = std::chrono::duration_cast<std::chrono::milliseconds>(clock::now() - prev_frame);
+        prev_frame = clock::now();
         malt::broadcast(malt::update{});
         mod.update();
         malt::impl::post_frame();
+        if (malt::input::get_key_down(GLFW_KEY_A))
+        {
+            std::cout << "hai A\n";
+        }
+        std::cout << malt::time::get_delta_time().count() << '\n';
         f++;
     }
 

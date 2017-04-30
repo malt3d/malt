@@ -27,3 +27,4 @@ target_compile_definitions(malt_render PRIVATE "${RTK_COMPILE_FLAGS}")
 target_compile_definitions(malt_render PUBLIC GLM_ENABLE_EXPERIMENTAL=1)
 
 target_link_libraries(malt_render malt_core)
+target_link_libraries(malt_render malt_basic)

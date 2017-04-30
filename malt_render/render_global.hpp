@@ -12,8 +12,8 @@
 class render_mod
 {
     rtk::rtk_init init_;
-    rtk::window* w;
 public:
+    rtk::window* w;
 
     void init();
 
