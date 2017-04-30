@@ -8,11 +8,12 @@
 #include <malt/component_mgr.cpp>
 #include <malt_basic/components/transform.hpp>
 
-void mesh_renderer::Handle(render)
+void mesh_renderer::Handle(render, const render_ctx& ctx)
 {
     auto mat = get_entity().get_component<material>();
     auto& prog = mat->get_program();
     prog.set_variable("model", get_component<malt::transform>()->get_mat4());
+    prog.set_variable("vp", ctx.vp);
     m_mesh->draw(prog);
 }
 

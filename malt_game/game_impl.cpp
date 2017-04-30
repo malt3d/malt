@@ -14,6 +14,10 @@
 
 #include <malt_render/render_module.hpp>
 #include <malt_render/components/mesh_renderer.hpp>
+#include <malt_render/components/material.hpp>
+#include <malt_render/components/lights/directional_light.hpp>
+#include <malt_render/components/lights/point_light.hpp>
+#include <malt_render/components/render_test.h>
 
 MALT_IMPLEMENT_GAME(game_config)
 
@@ -34,7 +38,6 @@ namespace malt
             g.broadcast(MsgT{}, args...);
         }
 
-
         template <class CompT>
         component_mgr<CompT>& component_adapter<CompT>::get_mgr()
         {
@@ -45,6 +48,13 @@ namespace malt
         void component_adapter<CompT>::destroy(CompT* c)
         {
             g.destroy_comp(c);
+        }
+
+        template <class CompT>
+        void component_adapter<CompT>::for_components(std::function<void(CompT*)> fun)
+        {
+            auto& mgr = g.get_mgr<CompT>();
+            mgr.for_each(fun);
         }
 
         entity create_entity()
@@ -71,9 +81,7 @@ namespace malt
 
         template struct msg_delivery<int()>;
         template struct msg_delivery<int(int)>;
-        template struct msg_delivery<render()>;
-        template struct msg_delivery<render(float)>;
-        template struct msg_delivery<render(float, double)>;
+        template struct msg_delivery<render(render_ctx)>;
         template struct msg_delivery<malt::init()>;
         template struct msg_delivery<malt::update()>;
 

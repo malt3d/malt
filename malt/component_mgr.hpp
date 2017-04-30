@@ -75,6 +75,27 @@ namespace malt
 
         void remove_component(CompT* c);
 
+        template <class FunT>
+        void for_each(const FunT& fun)
+        {
+            for (auto& c : comps)
+            {
+                if (!detail::get_id(c.get_entity()))
+                {
+                    continue;
+                }
+                fun(&c);
+            }
+            for (auto& c : aside)
+            {
+                if (!detail::get_id(c.get_entity()))
+                {
+                    continue;
+                }
+                fun(&c);
+            }
+        }
+
         template <class MsgT, class... Args>
         void deliver(entity_id id, MsgT, Args&&... args)
         {

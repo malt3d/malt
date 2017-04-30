@@ -8,6 +8,7 @@
 #include <malt_render/messages.hpp>
 #include <malt/component.hpp>
 #include <rtk/gl/mesh.hpp>
+#include <malt_render/render_ctx.hpp>
 
 class mesh_renderer : public malt::component
 {
@@ -16,7 +17,7 @@ private:
 
 public:
     void set_mesh(rtk::gl::mesh& m);
-    void Handle(render);
+    void Handle(render, const render_ctx&);
 };
 
 #endif //MALT_MESH_RENDERER_HPP

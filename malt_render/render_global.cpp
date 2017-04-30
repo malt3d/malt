@@ -3,6 +3,7 @@
 //
 
 #include "render_global.hpp"
+#include "render_ctx.hpp"
 #include <GLFW/glfw3.h>
 
 static render_mod* inst;
@@ -53,6 +54,7 @@ void render_mod::update()
         return;
     }
     w->begin_draw();
-    malt::broadcast(render{});
+    render_ctx ctx;
+    malt::broadcast(render{}, ctx);
     w->end_draw();
 }
