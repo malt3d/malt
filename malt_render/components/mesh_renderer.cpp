@@ -9,12 +9,12 @@
 
 void mesh_renderer::Handle(render)
 {
-    mesh->draw(get_entity().get_component<material>()->p);
+    m_mesh->draw(get_entity().get_component<material>()->get_program());
 }
 
 void mesh_renderer::set_mesh(rtk::gl::mesh& m)
 {
-    mesh = &m;
+    m_mesh = &m;
 }
 
 MALT_IMPLEMENT_COMP(mesh_renderer)

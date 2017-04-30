@@ -11,7 +11,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
     set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
 endif()
 
-set(SOURCE_FILES mesh.hpp mesh.cpp)
+set(SOURCE_FILES)
 add_library(malt_geometry SHARED ${SOURCE_FILES})
 
 set_target_properties(malt_geometry PROPERTIES POSITION_INDEPENDENT_CODE ON)

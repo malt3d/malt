@@ -12,7 +12,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
     set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
 endif()
 
-set(SOURCE_FILES components/mesh_renderer.cpp components/mesh_renderer.hpp render_module.cpp render_module.hpp render_global.cpp render_global.hpp messages.hpp components/material.cpp components/material.hpp)
+set(SOURCE_FILES components/mesh_renderer.cpp components/mesh_renderer.hpp render_module.cpp render_module.hpp render_global.cpp render_global.hpp messages.hpp components/material.cpp components/material.hpp components/render_test.cpp components/render_test.h)
 add_library(malt_render SHARED ${SOURCE_FILES})
 
 set_target_properties(malt_render PROPERTIES POSITION_INDEPENDENT_CODE ON)
@@ -24,5 +24,6 @@ target_include_directories(malt_render PUBLIC "${RTK_INCLUDE_DIRS}")
 target_link_libraries(malt_render "${RTK_LIBRARIES}")
 target_compile_definitions(malt_render PRIVATE "${RTK_COMPILE_FLAGS}")
 
+target_compile_definitions(malt_render PUBLIC GLM_ENABLE_EXPERIMENTAL=1)
+
 target_link_libraries(malt_render malt_core)
-target_link_libraries(malt_render malt_geometry)

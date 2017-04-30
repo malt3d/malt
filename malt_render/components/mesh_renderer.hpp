@@ -11,9 +11,10 @@
 
 class mesh_renderer : public malt::component
 {
-    rtk::gl::mesh* mesh;
-public:
+private:
+    rtk::gl::mesh* m_mesh;
 
+public:
     void set_mesh(rtk::gl::mesh& m);
     void Handle(render);
 };
