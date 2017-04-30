@@ -13,4 +13,3 @@ struct game_config
     using modules = malt::mp::map_t<malt::mp::mapper<malt::module>, module_defs>;
 };
 
-extern malt::game<game_config> g;
