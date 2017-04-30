@@ -16,7 +16,7 @@ private:
     glm::mat4 m_view_matrix;
     glm::mat4 m_projection_matrix;
     glm::mat4 m_vp_matrix;
-    float m_fov = 0.785398f; //PI over 4
+    float m_fov = 1.0471975512f; // 60 degrees
     float m_aspect_ratio = 1.333333f; //800 over 600
     float m_near_plane = 0.1f;
     float m_far_plane = 100.0f;

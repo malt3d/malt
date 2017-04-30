@@ -67,9 +67,6 @@ int main()
         malt::broadcast(malt::update{});
         mod.update();
         malt::impl::post_frame();
-
-
-
         f++;
     }
 
