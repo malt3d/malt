@@ -1,3 +1,6 @@
 [submodule "3rd_party/gsl"]
 	path = 3rd_party/gsl
 	url = https://github.com/Microsoft/GSL
+[submodule "malt_basic"]
+	path = malt_basic
+	url = git@github.com:malt3d/malt_basic
