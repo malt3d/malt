@@ -18,3 +18,5 @@ set_target_properties(malt_geometry PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(malt_geometry PUBLIC "../")
 target_include_directories(malt_geometry PUBLIC "../3rd_party/gsl/include")
 target_link_libraries(malt_geometry malt_core)
+
+target_compile_definitions(malt_geometry PUBLIC GLM_ENABLE_EXPERIMENTAL=1)

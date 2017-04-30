@@ -80,7 +80,7 @@ namespace malt
         template struct component_adapter<simple>;
         template struct component_adapter<test_component>;
 
-        template struct component_adapter<transform>;
+        template struct component_adapter<malt::transform>;
 
         template struct component_adapter<mesh_renderer>;
         template struct component_adapter<material>;
