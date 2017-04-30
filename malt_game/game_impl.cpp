@@ -62,6 +62,7 @@ namespace malt
         template struct msg_delivery<render(float)>;
         template struct msg_delivery<render(float, double)>;
         template struct msg_delivery<malt::init()>;
+        template struct msg_delivery<malt::update()>;
 
         template struct component_adapter<simple>;
         template struct component_adapter<test_component>;

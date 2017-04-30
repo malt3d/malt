@@ -16,6 +16,7 @@
 #include <malt_render/messages.hpp>
 #include <malt_render/components/mesh_renderer.hpp>
 #include <malt_render/components/material.hpp>
+#include <malt/message.hpp>
 
 int main()
 {
@@ -41,6 +42,7 @@ int main()
     int f = 0;
     while (!w.should_close())
     {
+        malt::broadcast(malt::update{});
         w.begin_draw();
         malt::broadcast(render{});
         w.end_draw();

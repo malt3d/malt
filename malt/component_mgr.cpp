@@ -68,7 +68,7 @@ namespace malt
             {
                 if (comp_it->is_enabled())
                 {
-                    try_dispatch(comp_it, update{});
+                    //try_dispatch(comp_it, update{});
                 }
             }
             else
@@ -76,7 +76,7 @@ namespace malt
                 if (detail::get_id(aside_it->get_entity()))
                 {
                     try_dispatch(aside_it, start{});
-                    try_dispatch(aside_it, update{});
+                    //try_dispatch(aside_it, update{});
                     *comp_it = std::move(*aside_it);
                 }
                 ++aside_it;
@@ -88,7 +88,7 @@ namespace malt
         {
             if (comp_it->is_enabled())
             {
-                try_dispatch(comp_it, update{});
+                //try_dispatch(comp_it, update{});
             }
         }
 
@@ -97,7 +97,7 @@ namespace malt
             if (detail::get_id(aside_it->get_entity()))
             {
                 try_dispatch(aside_it, start{});
-                try_dispatch(aside_it, update{});
+                //try_dispatch(aside_it, update{});
                 *bcomp_it = std::move(*aside_it);
             }
         }
