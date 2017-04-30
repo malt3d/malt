@@ -21,7 +21,8 @@ private:
 public:
     void Handle(malt::start);
 
-    const rtk::gl::program& get_program();
+    rtk::gl::program& get_program();
+    const rtk::gl::program& get_program() const;
     void set_ambient(const glm::vec3& ambient);
     void set_diffuse(const glm::vec3& diffuse);
     void set_specular(const glm::vec3& specular);
