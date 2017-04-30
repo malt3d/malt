@@ -6,10 +6,14 @@
 #include "material.hpp"
 #include <rtk/gl/mesh.hpp>
 #include <malt/component_mgr.cpp>
+#include <malt_basic/components/transform.hpp>
 
 void mesh_renderer::Handle(render)
 {
-    m_mesh->draw(get_entity().get_component<material>()->get_program());
+    auto mat = get_entity().get_component<material>();
+    auto& prog = mat->get_program();
+    prog.set_variable("model", get_component<malt::transform>()->get_mat4());
+    m_mesh->draw(prog);
 }
 
 void mesh_renderer::set_mesh(rtk::gl::mesh& m)
