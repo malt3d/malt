@@ -18,6 +18,8 @@
 
 #include <malt_basic/input.hpp>
 #include <malt_render/components/lights/directional_light.hpp>
+#include <malt_render/components/camera.hpp>
+#include <malt_basic/components/fps_control.hpp>
 
 static std::chrono::milliseconds dt;
 
@@ -25,9 +27,9 @@ namespace malt
 {
 namespace time
 {
-    std::chrono::milliseconds get_delta_time()
+    float get_delta_time()
     {
-        return dt;
+        return dt.count() / 1000.f;
     }
 }
 }
@@ -38,15 +40,18 @@ int main()
     render_mod mod;
     mod.init();
 
-    malt::entity e = malt::create_entity();
+    auto main_cam = malt::create_entity();
+    main_cam.add_component<malt::transform>();
+    main_cam.add_component<camera>();
+    main_cam.add_component<fps_control>();
+
+    auto e = malt::create_entity();
 
     auto light = malt::create_entity();
     light.add_component<malt::transform>();
     light.add_component<directional_light>();
 
     auto t = e.add_component<malt::transform>();
-    t->set_scale({0.25f, 0.25f, 0.25f});
-
     e.add_component<render_test>();
 
     using clock = std::chrono::high_resolution_clock;
@@ -62,6 +67,9 @@ int main()
         malt::broadcast(malt::update{});
         mod.update();
         malt::impl::post_frame();
+
+
+
         f++;
     }
 

@@ -11,6 +11,7 @@
 
 #include <malt_basic/basic_module.hpp>
 #include <malt_basic/components/transform.hpp>
+#include <malt_basic/components/fps_control.hpp>
 
 #include <malt_render/render_module.hpp>
 #include <malt_render/components/mesh_renderer.hpp>
@@ -18,6 +19,7 @@
 #include <malt_render/components/lights/directional_light.hpp>
 #include <malt_render/components/lights/point_light.hpp>
 #include <malt_render/components/render_test.h>
+#include <malt_render/components/camera.hpp>
 
 MALT_IMPLEMENT_GAME(game_config)
 
@@ -89,12 +91,14 @@ namespace malt
         template struct component_adapter<test_component>;
 
         template struct component_adapter<malt::transform>;
+        template struct component_adapter<fps_control>;
 
         template struct component_adapter<mesh_renderer>;
         template struct component_adapter<material>;
         template struct component_adapter<render_test>;
         template struct component_adapter<directional_light>;
         template struct component_adapter<point_light>;
+        template struct component_adapter<camera>;
     }
 }
 

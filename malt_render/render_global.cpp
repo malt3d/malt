@@ -5,6 +5,7 @@
 #include "render_global.hpp"
 #include "render_ctx.hpp"
 #include <GLFW/glfw3.h>
+#include <malt_render/components/camera.hpp>
 
 static render_mod* inst;
 
@@ -54,7 +55,11 @@ void render_mod::update()
         return;
     }
     w->begin_draw();
-    render_ctx ctx;
-    malt::broadcast(render{}, ctx);
+    malt::for_each_component<camera>([](camera* cam)
+    {
+        render_ctx ctx;
+        ctx.vp = cam->get_vp_matrix();
+        malt::broadcast(render{}, ctx);
+    });
     w->end_draw();
 }
