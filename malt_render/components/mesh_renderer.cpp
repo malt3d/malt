@@ -14,6 +14,11 @@ void mesh_renderer::Handle(render, const render_ctx& ctx)
     auto& prog = mat->get_program();
     prog.set_variable("model", get_component<malt::transform>()->get_mat4());
     prog.set_variable("vp", ctx.vp);
+    prog.set_variable("camera_position", ctx.cam_position);
+    prog.set_variable("ambient_light", ctx.ambient_light);
+    prog.set_variable("directional_light.intensity", ctx.dir_light.intensity);
+    prog.set_variable("directional_light.direction", ctx.dir_light.direction);
+    prog.set_variable("number_of_point_lights", 0);
     m_mesh->draw(prog);
 }
 

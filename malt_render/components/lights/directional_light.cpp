@@ -16,4 +16,8 @@ glm::vec3 directional_light::get_intensity()
     return m_intensity;
 }
 
+void directional_light::set_intensity(const glm::vec3 & intensity) {
+    m_intensity = intensity;
+}
+
 MALT_IMPLEMENT_COMP(directional_light)

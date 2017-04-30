@@ -25,7 +25,10 @@ void material::Handle(malt::start)
     m_program.attach(phong_fragment);
     m_program.link();
 
-    m_program.set_variable("diffuse", m_diffuse);
+    m_program.set_variable("material.ambient", m_ambient);
+    m_program.set_variable("material.diffuse", m_diffuse);
+    m_program.set_variable("material.specular", m_specular);
+    m_program.set_variable("material.phong_exponent", m_phong_exponent);
 }
 
 rtk::gl::program& material::get_program()

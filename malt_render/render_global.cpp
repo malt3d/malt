@@ -6,6 +6,9 @@
 #include "render_ctx.hpp"
 #include <GLFW/glfw3.h>
 #include <malt_render/components/camera.hpp>
+#include <malt_basic/components/transform.hpp>
+#include <malt_render/components/lights/point_light.hpp>
+#include <malt_render/components/lights/directional_light.hpp>
 
 static render_mod* inst;
 
@@ -39,11 +42,13 @@ void render_mod::init()
 {
     using namespace rtk::literals;
     w = new rtk::window({800_px, 600_px}, "malt");
+    w->lock_cursor(true);
     inst = this;
 }
 
 void render_mod::destruct()
 {
+    w->lock_cursor(false);
     delete w;
 }
 
@@ -55,10 +60,35 @@ void render_mod::update()
         return;
     }
     w->begin_draw();
-    malt::for_each_component<camera>([](camera* cam)
+
+    glm::vec3 ambient = {1, 1, 1};
+    directional_light_data dl;
+    point_light_data pl[8];
+    int pl_len = 0;
+
+    malt::for_each_component<point_light>([&](point_light* p_pl)
+    {
+        pl[pl_len].position = p_pl->get_component<malt::transform>()->get_pos();
+        pl[pl_len].intensity = p_pl->get_intensity();
+        ++pl_len;
+    });
+
+    malt::for_each_component<directional_light>([&](directional_light* p_dl)
+    {
+        dl.direction = p_dl->get_light_direction();
+        dl.intensity = p_dl->get_intensity();
+    });
+
+    malt::for_each_component<camera>([&](camera* cam)
     {
         render_ctx ctx;
         ctx.vp = cam->get_vp_matrix();
+        ctx.cam_position = cam->get_component<malt::transform>()->get_pos();
+        ctx.ambient_light = ambient;
+        ctx.point_light_size = pl_len;
+        ctx.dir_light = dl;
+        std::copy(std::begin(pl), std::end(pl), std::begin(ctx.point_lights));
+
         malt::broadcast(render{}, ctx);
     });
     w->end_draw();
