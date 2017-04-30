@@ -23,6 +23,9 @@ int main()
 
     malt::entity e = malt::create_entity();
 
+    auto t = e.add_component<malt::transform>();
+    t->set_scale({0.25f, 0.25f, 0.25f});
+
     e.add_component<render_test>();
 
     auto b = std::chrono::high_resolution_clock::now();

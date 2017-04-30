@@ -33,6 +33,11 @@ namespace malt
 
         bool is_enabled() const { return m_enabled; }
         void set_enabled(bool active) { m_enabled = active; }
+
+        template <class CompT>
+        auto get_component() {
+            return m_e.get_component<CompT>();
+        }
     };
 }
 
