@@ -35,7 +35,7 @@ namespace malt
         void set_enabled(bool active) { m_enabled = active; }
 
         template <class CompT>
-        auto get_component() {
+        CompT* get_component() {
             return m_e.get_component<CompT>();
         }
     };

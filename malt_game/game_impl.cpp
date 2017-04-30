@@ -85,6 +85,8 @@ namespace malt
         template struct component_adapter<mesh_renderer>;
         template struct component_adapter<material>;
         template struct component_adapter<render_test>;
+        template struct component_adapter<directional_light>;
+        template struct component_adapter<point_light>;
     }
 }
 

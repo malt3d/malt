@@ -17,6 +17,7 @@
 #include <malt_render/components/render_test.h>
 
 #include <malt_basic/input.hpp>
+#include <malt_render/components/lights/directional_light.hpp>
 
 static std::chrono::milliseconds dt;
 
@@ -39,6 +40,10 @@ int main()
 
     malt::entity e = malt::create_entity();
 
+    auto light = malt::create_entity();
+    light.add_component<malt::transform>();
+    light.add_component<directional_light>();
+
     auto t = e.add_component<malt::transform>();
     t->set_scale({0.25f, 0.25f, 0.25f});
 
@@ -57,11 +62,6 @@ int main()
         malt::broadcast(malt::update{});
         mod.update();
         malt::impl::post_frame();
-        if (malt::input::get_key_down(GLFW_KEY_A))
-        {
-            std::cout << "hai A\n";
-        }
-        std::cout << malt::time::get_delta_time().count() << '\n';
         f++;
     }
 
