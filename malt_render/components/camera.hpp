@@ -15,15 +15,18 @@ class camera : public malt::component
 private:
     glm::mat4 m_view_matrix;
     glm::mat4 m_projection_matrix;
+    glm::mat4 m_vp_matrix;
     float m_fov = 0.785398f; //PI over 4
-    float m_aspect_ratio = 1.333333f;
+    float m_aspect_ratio = 1.333333f; //800 over 600
     float m_near_plane = 0.1f;
     float m_far_plane = 100.0f;
     bool m_update_projection_matrix = true;
 
 public:
-    void Update(malt::update);
+    void Handle(malt::update);
 
+    glm::mat4& get_vp_matrix();
+    const glm::mat4& get_vp_matrix() const;
     void set_fov(float fov);
     void set_aspect_ratio(float aspect_ratio);
     void set_near_plane(float near_plane);
