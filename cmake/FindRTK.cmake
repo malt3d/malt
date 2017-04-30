@@ -1,5 +1,5 @@
 find_path(RTK_INCLUDE_DIR
-        NAMES rtk/rtk_fwd.hpp
+        NAMES rtk_fwd.hpp
         PATHS /usr/local/include /usr/include "${RTK_ROOT}")
 
 find_library(RTK_LIBRARIES

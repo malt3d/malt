@@ -34,6 +34,7 @@ namespace malt
             g.broadcast(MsgT{}, args...);
         }
 
+
         template <class CompT>
         component_mgr<CompT>& component_adapter<CompT>::get_mgr()
         {
@@ -54,6 +55,18 @@ namespace malt
         void post_frame()
         {
             g.synchronize();
+        }
+
+        bool running = true;
+
+        void terminate()
+        {
+            running = false;
+        }
+
+        bool is_terminated()
+        {
+            return !running;
         }
 
         template struct msg_delivery<int()>;

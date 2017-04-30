@@ -30,6 +30,8 @@ namespace malt
         entity create_entity();
 
         void post_frame();
+        void terminate();
+        bool is_terminated();
     }
 
     template <class MsgT, class... Args>
@@ -37,9 +39,7 @@ namespace malt
         impl::msg_delivery<MsgT(Args...)>::broadcast(MsgT{}, std::forward<Args>(args)...);
     };
 
-    inline entity create_entity() {
-        return impl::create_entity();
-    }
+    entity create_entity();
 
     template <class CompT>
     void destroy(CompT comp)
@@ -47,5 +47,8 @@ namespace malt
         using elem_t = typename std::iterator_traits<CompT>::value_type;
         impl::component_adapter<elem_t>::destroy(&(*comp));
     }
+
+    inline void terminate() { impl::terminate(); }
+    inline bool is_terminated() { return impl::is_terminated(); }
 }
 

@@ -8,26 +8,20 @@
 #include <malt_basic/components/transform.hpp>
 
 #include <malt_geometry/mesh.hpp>
-#include <rtk/rtk_fwd.hpp>
 #include <rtk/gl/mesh.hpp>
-#include <rtk/window.hpp>
-#include <rtk/rtk_init.hpp>
 #include <chrono>
 #include <malt_render/messages.hpp>
 #include <malt_render/components/mesh_renderer.hpp>
 #include <malt_render/components/material.hpp>
 #include <malt/message.hpp>
+#include <malt_render/render_global.hpp>
 
 int main()
 {
-    using namespace rtk::literals;
-
-    rtk::rtk_init init;
-    rtk::window w({800_px, 600_px}, "malt");
+    render_mod mod;
+    mod.init();
 
     malt::entity e = malt::create_entity();
-    malt::entity another = malt::create_entity();
-    malt::entity last = malt::create_entity();
 
     auto mat = e.add_component<material>();
 
@@ -40,15 +34,16 @@ int main()
 
     auto b = std::chrono::high_resolution_clock::now();
     int f = 0;
-    while (!w.should_close())
+    while (!malt::is_terminated())
     {
         malt::broadcast(malt::update{});
-        w.begin_draw();
-        malt::broadcast(render{});
-        w.end_draw();
+        mod.update();
         malt::impl::post_frame();
         f++;
     }
+
+    mod.destruct();
+
     std::cout << float(f) / (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - b).count() / 1000.f)  << '\n';
 
     return 0;

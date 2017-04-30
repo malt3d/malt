@@ -43,6 +43,11 @@ namespace malt
         return entity(next++);
     }
 
+    entity create_entity()
+    {
+        return impl::create_entity();
+    }
+
     template <class T>
     void game<T>::synchronize()
     {
