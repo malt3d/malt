@@ -28,7 +28,12 @@ void material::Handle(malt::start)
     m_program.set_variable("diffuse", m_diffuse);
 }
 
-const rtk::gl::program& material::get_program()
+rtk::gl::program& material::get_program()
+{
+    return m_program;
+}
+
+const rtk::gl::program& material::get_program() const
 {
     return m_program;
 }
