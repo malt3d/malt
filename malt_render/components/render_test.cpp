@@ -9,6 +9,7 @@
 #include "mesh_renderer.hpp"
 #include <rtk/asset/mesh_import.hpp>
 #include <rtk/mesh_ops.hpp>
+#include <malt_render/texture/tex2d.hpp>
 
 void render_test::Handle(malt::start)
 {
@@ -19,11 +20,18 @@ void render_test::Handle(malt::start)
     phong_material->set_phong_exponent(32.0f);
 
     auto mesh_rend = get_entity().add_component<mesh_renderer>();
-    auto meshes = rtk::assets::load_meshes("/home/musti/rtk/assets/teapot.obj");
+    auto meshes = rtk::assets::load_meshes("/Users/fatih/rtk/assets/teapot 2.obj");
     auto m = new rtk::gl::mesh(meshes[0]);
     m->add_vertex_data<glm::vec3>(1, rtk::geometry::generate_normals(meshes[0]));
 
     mesh_rend->set_mesh(*m);
+
+    auto texture = malt::graphics::load_texture("/Users/fatih/Desktop/bjarne.jpg");
+    auto gl_texture = new malt::gl::texture2d(texture);
+
+
+    gl_texture->activate(1);
+    phong_material->get_program().set_variable("tex", 1);
 
     malt::destroy(this);
 }

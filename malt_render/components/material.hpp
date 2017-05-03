@@ -19,6 +19,7 @@ private:
     float m_phong_exponent;
 
 public:
+    void Handle(malt::init);
     void Handle(malt::start);
 
     rtk::gl::program& get_program();

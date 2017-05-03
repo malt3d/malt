@@ -20,6 +20,7 @@
 #include <malt_render/components/lights/directional_light.hpp>
 #include <malt_render/components/camera.hpp>
 #include <malt_basic/components/fps_control.hpp>
+#include <malt_render/texture/tex2d.hpp>
 
 static std::chrono::milliseconds dt;
 
@@ -42,7 +43,7 @@ int main()
 
     auto main_cam = malt::create_entity();
     main_cam.add_component<malt::transform>();
-    main_cam.add_component<camera>();
+    auto c = main_cam.add_component<camera>();
     main_cam.add_component<fps_control>();
 
     auto e = malt::create_entity();
