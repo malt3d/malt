@@ -2,8 +2,9 @@
 // Created by fatih on 4/30/17.
 //
 
-#include "render_global.hpp"
-#include "render_ctx.hpp"
+#include <glm/glm.hpp>
+#include <malt_render/render_global.hpp>
+#include <malt_render/render_ctx.hpp>
 #include <GLFW/glfw3.h>
 #include <malt_render/components/camera.hpp>
 #include <malt_basic/components/transform.hpp>

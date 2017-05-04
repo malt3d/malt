@@ -2,7 +2,7 @@
 // Created by Mehmet Fatih BAKIR on 01/05/2017.
 //
 
-#include "tex2d.hpp"
+#include <malt_render/texture/tex2d.hpp>
 #include <SOIL/SOIL.h>
 #include <string>
 

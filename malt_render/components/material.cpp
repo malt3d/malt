@@ -2,8 +2,8 @@
 // Created by fatih on 4/30/17.
 //
 
-#include "material.hpp"
-#include <malt/component_mgr.cpp>
+#include <malt_render/components/material.hpp>
+#include <malt/component_mgr_impl.hpp>
 #include <fstream>
 #include <malt_render/messages.hpp>
 #include <rtk/gl/shader.hpp>
@@ -56,8 +56,8 @@ void material::Handle(malt::init)
         return {std::istreambuf_iterator<char>(f), std::istreambuf_iterator<char>()};
     };
 
-    rtk::gl::vertex_shader phong_vertex { read_text_file("../../malt_shaders/phong.vert").c_str() };
-    rtk::gl::fragment_shader phong_fragment { read_text_file("../../malt_shaders/phong.frag").c_str() };
+    rtk::gl::vertex_shader phong_vertex { read_text_file("/home/fatih/malt/malt_shaders/phong.vert").c_str() };
+    rtk::gl::fragment_shader phong_fragment { read_text_file("/home/fatih/malt/malt_shaders/phong.frag").c_str() };
 
     m_program.attach(phong_vertex);
     m_program.attach(phong_fragment);

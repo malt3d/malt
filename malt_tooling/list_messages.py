@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import subprocess
 import sys
 import re
@@ -35,5 +37,16 @@ def run_objdump(lib_file):
             lines.append(parse_line(line.replace('\n', '')))
     return list(filter(lambda x : not x is None, lines))
 
-for (msg, args) in (run_objdump(sys.argv[1])):
-    print('{}({})'.format(msg, ", ".join(args)))
+
+def main():
+    for (msg, args) in (run_objdump(sys.argv[1])):
+        output = '{}({})'.format(msg, ", ".join(args))
+        if len(sys.argv) <= 2:
+            print(output)
+        else:
+            with open(sys.argv[2], "a") as out_file:
+                out_file.write(output + '\n')
+
+if __name__ == "__main__":
+    main()
+

@@ -79,3 +79,5 @@ fabric.properties
 
 **/cmake-build-*/
 .idea/
+malt_modules/
+malt_tooling/__pycache__

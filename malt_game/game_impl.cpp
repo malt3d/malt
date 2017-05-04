@@ -2,24 +2,25 @@
  * DO NOT EDIT MANUALLY
  */
 
-#include <malt/game.cpp>
-#include <malt_game/game_impl.hpp>
-
-#include <sample/sample_module.hpp>
-#include <sample/components/test.hpp>
-#include <sample/components/simple.hpp>
+#include <malt/game_impl.hpp>
 
 #include <malt_basic/basic_module.hpp>
 #include <malt_basic/components/transform.hpp>
 #include <malt_basic/components/fps_control.hpp>
 
-#include <malt_render/render_module.hpp>
+#include <malt_render/module.hpp>
 #include <malt_render/components/mesh_renderer.hpp>
 #include <malt_render/components/material.hpp>
 #include <malt_render/components/lights/directional_light.hpp>
 #include <malt_render/components/lights/point_light.hpp>
-#include <malt_render/components/render_test.h>
+#include <malt_render/components/render_test.hpp>
 #include <malt_render/components/camera.hpp>
+
+struct game_config
+{
+    using module_defs = malt::mp::list<struct basic_module_def, struct render_module_def>;
+    using modules = malt::mp::map_t<malt::mp::mapper<malt::module>, module_defs>;
+};
 
 MALT_IMPLEMENT_GAME(game_config)
 
@@ -81,14 +82,9 @@ namespace malt
             return !running;
         }
 
-        template struct msg_delivery<int()>;
-        template struct msg_delivery<int(int)>;
         template struct msg_delivery<render(render_ctx)>;
         template struct msg_delivery<malt::init()>;
         template struct msg_delivery<malt::update()>;
-
-        template struct component_adapter<simple>;
-        template struct component_adapter<test_component>;
 
         template struct component_adapter<malt::transform>;
         template struct component_adapter<fps_control>;

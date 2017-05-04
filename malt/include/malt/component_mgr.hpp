@@ -8,7 +8,6 @@
 #include <memory>
 #include <malt/component_traits.hpp>
 #include <vector>
-#include <malt_util/buffer.hpp>
 #include <malt/utilities.hpp>
 
 namespace malt

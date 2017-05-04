@@ -1,40 +1,65 @@
 cmake_minimum_required(VERSION 3.5)
 project(malt)
 
-LIST(APPEND CMAKE_MODULE_PATH "../cmake/")
+LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/")
 set(CMAKE_CXX_STANDARD 14)
 
 set(RTK_ROOT "/home/fatih/rtk/rtk")
 find_package(RTK REQUIRED)
 find_package(SOIL REQUIRED)
 
+include(Malt)
+
 message(STATUS "${CMAKE_CXX_COMPILER_ID}")
 if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
     set(CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_CXX_FLAGS} -undefined dynamic_lookup")
 endif()
 
-set(SOURCE_FILES components/mesh_renderer.cpp components/mesh_renderer.hpp render_module.cpp render_module.hpp
-        render_global.cpp render_global.hpp messages.hpp components/material.cpp components/material.hpp
-        components/render_test.cpp components/render_test.h components/lights/directional_light.cpp
-        components/lights/directional_light.hpp components/lights/point_light.cpp components/lights/point_light.hpp
-        render_ctx.hpp
-        components/camera.cpp components/camera.hpp texture/tex2d.cpp texture/tex2d.hpp)
+set(HEADER_PATH "${CMAKE_CURRENT_SOURCE_DIR}/include/malt_render")
+set(HEADER_FILES
+        ${HEADER_PATH}/render_global.hpp
+        ${HEADER_PATH}/messages.hpp
+        ${HEADER_PATH}/components/mesh_renderer.hpp
+        ${HEADER_PATH}/components/render_test.hpp
+        ${HEADER_PATH}/components/lights/directional_light.hpp
+        ${HEADER_PATH}/components/lights/point_light.hpp
+        ${HEADER_PATH}/components/camera.hpp
+        ${HEADER_PATH}/components/material.hpp
+        ${HEADER_PATH}/render_ctx.hpp
+        ${HEADER_PATH}/texture/tex2d.hpp
+        ${HEADER_PATH}/module.hpp)
+
+set(SOURCE_FILES
+        components/mesh_renderer.cpp
+        module.cpp
+        render_global.cpp
+        components/material.cpp
+        components/render_test.cpp
+        components/lights/directional_light.cpp
+        components/lights/point_light.cpp
+        components/camera.cpp
+        texture/tex2d.cpp )
 
 add_library(malt_render SHARED ${SOURCE_FILES})
+malt_def_module(malt_render)
 
 set_target_properties(malt_render PROPERTIES POSITION_INDEPENDENT_CODE ON)
-target_include_directories(malt_render PUBLIC "../")
-target_include_directories(malt_render PUBLIC "../3rd_party/gsl/include")
 
-message(STATUS "${RTK_INCLUDE_DIRS}")
 target_include_directories(malt_render PUBLIC "${RTK_INCLUDE_DIRS}")
-target_link_libraries(malt_render "${RTK_LIBRARIES}")
-target_compile_definitions(malt_render PRIVATE "${RTK_COMPILE_FLAGS}")
+target_link_libraries(malt_render PUBLIC "${RTK_LIBRARIES}")
+target_compile_definitions(malt_render PUBLIC "${RTK_COMPILE_FLAGS}")
 
 target_include_directories(malt_render PUBLIC "${SOIL_INCLUDE_DIR}")
-target_link_libraries(malt_render "${SOIL_LIBRARY}")
+target_link_libraries(malt_render PUBLIC "${SOIL_LIBRARY}")
 
 target_compile_definitions(malt_render PUBLIC GLM_ENABLE_EXPERIMENTAL=1)
 
-target_link_libraries(malt_render malt_core)
-target_link_libraries(malt_render malt_basic)
+#malt_add_module(malt_render malt_core)
+#malt_add_module(malt_render malt_basic)
+
+find_package(malt_core REQUIRED)
+find_package(malt_basic REQUIRED)
+
+target_link_libraries(malt_render PUBLIC malt_core malt_basic)
+
+malt_install(malt_render ${HEADER_PATH})

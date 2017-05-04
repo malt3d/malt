@@ -2,7 +2,7 @@
 // Created by fatih on 4/27/17.
 //
 
-#include "module.hpp"
+#include <malt/module.hpp>
 
 namespace malt
 {

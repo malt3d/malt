@@ -2,10 +2,10 @@
 // Created by musti on 30.04.2017.
 //
 
-#include <malt/component_mgr.cpp>
+#include <malt/component_mgr_impl.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <malt_basic/components/transform.hpp>
-#include "camera.hpp"
+#include <malt_render/components/camera.hpp>
 
 void camera::Handle(malt::update)
 {

@@ -8,8 +8,8 @@
 #include <algorithm>
 #include <malt/entity.hpp>
 #include <iostream>
-#include "message.hpp"
-#include "utilities.hpp"
+#include <malt/message.hpp>
+#include <malt/utilities.hpp>
 
 namespace malt
 {

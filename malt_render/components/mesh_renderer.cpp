@@ -2,10 +2,10 @@
 // Created by fatih on 4/30/17.
 //
 
-#include "mesh_renderer.hpp"
-#include "material.hpp"
+#include <malt_render/components/mesh_renderer.hpp>
+#include <malt_render/components/material.hpp>
 #include <rtk/gl/mesh.hpp>
-#include <malt/component_mgr.cpp>
+#include <malt/component_mgr_impl.hpp>
 #include <malt_basic/components/transform.hpp>
 
 void mesh_renderer::Handle(render, const render_ctx& ctx)

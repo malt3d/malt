@@ -3,23 +3,21 @@
 #include <malt/component_mgr.hpp>
 #include <malt/component.hpp>
 
-#include <sample/components/test.hpp>
-#include <sample/components/simple.hpp>
 #include <malt_basic/components/transform.hpp>
 
 #include <rtk/gl/mesh.hpp>
 #include <chrono>
+
+#include <malt_basic/input.hpp>
+#include <malt_basic/components/fps_control.hpp>
+
 #include <malt_render/messages.hpp>
 #include <malt_render/components/mesh_renderer.hpp>
 #include <malt_render/components/material.hpp>
-#include <malt/message.hpp>
 #include <malt_render/render_global.hpp>
-#include <malt_render/components/render_test.h>
-
-#include <malt_basic/input.hpp>
+#include <malt_render/components/render_test.hpp>
 #include <malt_render/components/lights/directional_light.hpp>
 #include <malt_render/components/camera.hpp>
-#include <malt_basic/components/fps_control.hpp>
 #include <malt_render/texture/tex2d.hpp>
 
 static std::chrono::milliseconds dt;
@@ -43,7 +41,7 @@ int main()
 
     auto main_cam = malt::create_entity();
     main_cam.add_component<malt::transform>();
-    auto c = main_cam.add_component<camera>();
+    main_cam.add_component<camera>();
     main_cam.add_component<fps_control>();
 
     auto e = malt::create_entity();

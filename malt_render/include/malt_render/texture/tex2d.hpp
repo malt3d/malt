@@ -7,7 +7,7 @@
 
 #include <glm/vec3.hpp>
 #include <glad/glad.h>
-#include <3rd_party/gsl/include/gsl/span>
+#include <gsl/span>
 
 namespace malt {
     namespace graphics {

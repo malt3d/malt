@@ -20,7 +20,6 @@ if (RTK_FOUND)
     endif()
 
     set(GLAD_INCLUDE_DIR "${RTK_INCLUDE_DIR}/../glad/include/")
-    message(STATUS "${GLAD_INCLUDE_DIR}")
     set(RTK_INCLUDE_DIRS "")
     list(APPEND RTK_INCLUDE_DIRS "${RTK_INCLUDE_DIR}/..")
     list(APPEND RTK_INCLUDE_DIRS "${GLFW_INCLUDE_DIRS}")
