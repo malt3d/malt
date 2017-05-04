@@ -23,7 +23,9 @@ def main():
     proc = subprocess.Popen([get_cmake_path(), "-DCMAKE_INSTALL_PREFIX=" + install_prefix, os.path.join(original_wd, sys.argv[1])])
     proc.wait()
     another = subprocess.Popen([get_cmake_path(), "--build", ".", "--", "-j16"])
+    another.wait()
     another = subprocess.Popen([get_cmake_path(), "--build", ".", "--", "install"])
+    another.wait()
 
 if __name__ == '__main__':
     main()
