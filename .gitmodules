@@ -10,3 +10,6 @@
 [submodule "malt_tool"]
 	path = malt_tool
 	url = https://github.com/malt3d/malt_tool
+[submodule "malt_core"]
+	path = malt_core
+	url = git@github.com:malt3d/malt_core.git
