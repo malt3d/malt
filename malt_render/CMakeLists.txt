@@ -4,8 +4,9 @@ project(malt)
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/")
 set(CMAKE_CXX_STANDARD 14)
 
-set(RTK_ROOT "/home/fatih/rtk/rtk")
-find_package(RTK REQUIRED)
+message(STATUS "${CMAKE_PREFIX_PATH}")
+
+find_package(rtk REQUIRED)
 find_package(SOIL REQUIRED)
 
 include(Malt)
@@ -27,7 +28,9 @@ set(HEADER_FILES
         ${HEADER_PATH}/components/material.hpp
         ${HEADER_PATH}/render_ctx.hpp
         ${HEADER_PATH}/texture/tex2d.hpp
-        ${HEADER_PATH}/module.hpp)
+        ${HEADER_PATH}/module.hpp
+        ${HEADER_PATH}/display.hpp
+        ${HEADER_PATH}/malt_render_fwd.hpp)
 
 set(SOURCE_FILES
         components/mesh_renderer.cpp
@@ -38,16 +41,13 @@ set(SOURCE_FILES
         components/lights/directional_light.cpp
         components/lights/point_light.cpp
         components/camera.cpp
-        texture/tex2d.cpp )
+        texture/tex2d.cpp
+        display.cpp)
 
 add_library(malt_render SHARED ${SOURCE_FILES} ${HEADER_FILES})
 malt_def_module(malt_render)
 
-set_target_properties(malt_render PROPERTIES POSITION_INDEPENDENT_CODE ON)
-
-target_include_directories(malt_render PUBLIC "${RTK_INCLUDE_DIRS}")
-target_link_libraries(malt_render PUBLIC "${RTK_LIBRARIES}")
-target_compile_definitions(malt_render PUBLIC "${RTK_COMPILE_FLAGS}")
+target_link_libraries(malt_render PUBLIC rtk)
 
 target_include_directories(malt_render PUBLIC "${SOIL_INCLUDE_DIR}")
 target_link_libraries(malt_render PUBLIC "${SOIL_LIBRARY}")

@@ -6,6 +6,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <malt_basic/components/transform.hpp>
 #include <malt_render/components/camera.hpp>
+#include <malt_render/display.hpp>
+#include <rtk/utility.hpp>
 
 void camera::Handle(malt::update)
 {
@@ -58,6 +60,26 @@ glm::mat4 &camera::get_vp_matrix()
 const glm::mat4 &camera::get_vp_matrix() const
 {
     return m_vp_matrix;
+}
+
+void camera::reset_aspect()
+{
+    auto res = display->get_resolution();
+    float aspect = float(res.width) / res.height;
+    set_aspect_ratio(aspect);
+}
+
+void camera::activate() const
+{
+    rtk::size<rtk::pixels> res{ rtk::pixels(display->get_resolution().width * viewport_size.x),
+                         rtk::pixels(display->get_resolution().height * viewport_size.y) };
+
+    rtk::point2d<rtk::pixels> pos
+            { rtk::pixels(display->get_resolution().width * viewport_pos.x),
+              rtk::pixels(display->get_resolution().height * viewport_pos.y) };
+
+    rtk::screen_rect r{pos, res};
+    rtk::set_viewport(r);
 }
 
 MALT_IMPLEMENT_COMP(camera)

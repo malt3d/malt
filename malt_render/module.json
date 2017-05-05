@@ -19,7 +19,7 @@
 
   "dependencies":
   [
-    { "name" : "malt" },
+    { "name" : "malt_core" },
     { "name" : "malt_basic", "version": ".*?" }
   ]
 }

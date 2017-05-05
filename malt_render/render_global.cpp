@@ -10,6 +10,7 @@
 #include <malt_basic/components/transform.hpp>
 #include <malt_render/components/lights/point_light.hpp>
 #include <malt_render/components/lights/directional_light.hpp>
+#include <malt_render/display.hpp>
 
 static render_mod* inst;
 
@@ -89,6 +90,10 @@ void render_mod::update()
         ctx.point_light_size = pl_len;
         ctx.dir_light = dl;
         std::copy(std::begin(pl), std::end(pl), std::begin(ctx.point_lights));
+
+        malt::display d(w);
+        cam->set_display(&d);
+        cam->activate();
 
         malt::broadcast(render{}, ctx);
     });
