@@ -13,3 +13,7 @@
 [submodule "malt_core"]
 	path = malt_core
 	url = git@github.com:malt3d/malt_core.git
+[submodule "malt_render"]
+	path = malt_render
+	url = git@github.com:malt3d/malt_render.git
+	branch = malt_modules
