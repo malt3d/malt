@@ -30,5 +30,6 @@ set(HEADER_FILES
 set(SOURCE_FILES component.cpp entity.cpp)
 
 add_library(malt_core SHARED ${SOURCE_FILES})
+malt_def_module(malt_core)
 
 malt_install(malt_core ${HEADER_PATH})
