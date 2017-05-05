@@ -5,5 +5,8 @@
 	path = malt_basic
 	url = git@github.com:malt3d/malt_basic
 [submodule "malt_shaders"]
-    path = malt_shaders
+	path = malt_shaders
 	url = https://github.com/malt3d/malt_shaders
+[submodule "malt_tool"]
+	path = malt_tool
+	url = https://github.com/malt3d/malt_tool
