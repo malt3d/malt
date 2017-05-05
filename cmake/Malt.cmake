@@ -51,13 +51,16 @@ endfunction()
 function(malt_add_module to module_name)
     find_package(${module_name} REQUIRED)
 
-    add_custom_target(
-        preprocess_${module_name}
-        COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/../malt_tooling/list_messages.py $<TARGET_FILE:${module_name}> ${CMAKE_BINARY_DIR}/msg_list.txt
-    )
+    if (TARGET preprocess_{module_name})
+    else()
+    #    add_custom_target(
+    #        preprocess_${module_name}
+    #        COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/../malt_tooling/list_messages.py $<TARGET_FILE:${module_name}> ${CMAKE_BINARY_DIR}/msg_list.txt
+    #    )
+    endif()
 
     target_link_libraries(${to} PUBLIC ${module_name})
-    add_dependencies(${to} preprocess_${module_name})
+    #add_dependencies(${to} preprocess_${module_name})
 endfunction()
 
 function(malt_install _target HEADER_PATH)

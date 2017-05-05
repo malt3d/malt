@@ -40,7 +40,7 @@ set(SOURCE_FILES
         components/camera.cpp
         texture/tex2d.cpp )
 
-add_library(malt_render SHARED ${SOURCE_FILES})
+add_library(malt_render SHARED ${SOURCE_FILES} ${HEADER_FILES})
 malt_def_module(malt_render)
 
 set_target_properties(malt_render PROPERTIES POSITION_INDEPENDENT_CODE ON)
@@ -54,12 +54,7 @@ target_link_libraries(malt_render PUBLIC "${SOIL_LIBRARY}")
 
 target_compile_definitions(malt_render PUBLIC GLM_ENABLE_EXPERIMENTAL=1)
 
-#malt_add_module(malt_render malt_core)
-#malt_add_module(malt_render malt_basic)
-
-find_package(malt_core REQUIRED)
-find_package(malt_basic REQUIRED)
-
-target_link_libraries(malt_render PUBLIC malt_core malt_basic)
+malt_add_module(malt_render malt_core)
+malt_add_module(malt_render malt_basic)
 
 malt_install(malt_render ${HEADER_PATH})

@@ -9,6 +9,10 @@ import list_components
 class component_decl:
     name = ""
 
+class module_decl:
+    name = ""
+    version = ""
+
 class module_registry:
     def find_module(self):
         return
@@ -41,17 +45,28 @@ class malt_module:
             comps.append(res)
         return comps
 
-    def build_module(self):
-        return
-
-    def list_messages(self):
-        return []
+    @property
+    def depends(self):
+        deps = []
+        for elem in self._json_data["dependencies"]:
+            dep = module_decl()
+            if isinstance(elem, dict):
+                dep.name = elem["name"]
+            if isinstance(elem, str):
+                dep.name = elem
+            deps.append(dep)
+        return deps
 
 def main():
     module = malt_module(sys.argv[1])
     print(module.name)
+    print("Components: ")
     for comp in module.components:
         print("    + {}".format(comp.name))
+
+    print("Dependencies: ")
+    for dep in module.depends:
+        print("    + {}".format(dep.name))
 
 
 if __name__ == '__main__':
