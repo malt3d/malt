@@ -17,3 +17,6 @@
 	path = malt_render
 	url = git@github.com:malt3d/malt_render.git
 	branch = malt_modules
+[submodule "malt_cmake"]
+	path = malt_cmake
+	url = git@github.com:malt3d/malt_cmake
