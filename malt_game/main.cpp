@@ -24,7 +24,7 @@ static std::chrono::milliseconds dt;
 
 namespace malt
 {
-namespace time
+namespace impl
 {
     float get_delta_time()
     {
