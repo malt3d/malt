@@ -18,8 +18,8 @@
 #include <malt_render/components/render_test.hpp>
 #include <malt_render/components/lights/directional_light.hpp>
 #include <malt_render/components/camera.hpp>
-#include <malt_render/texture/tex2d.hpp>
-#include <malt_render/framebuffer.hpp>
+#include <rtk/texture/tex2d.hpp>
+#include <rtk/framebuffer.hpp>
 
 static std::chrono::milliseconds dt;
 
@@ -36,6 +36,7 @@ namespace impl
 
 int main()
 {
+    using namespace rtk;
     using namespace malt;
     using namespace std::chrono_literals;
     using namespace rtk::literals;
@@ -49,9 +50,9 @@ int main()
 
     auto render_t = gl::create_texture({800_px, 600_px}, graphics::pixel_format::rgba_byte);
     auto fb = gl::framebuffer(render_t);
+    //main_cam.get_component<camera>()->render_to_texture(fb);
 
     //main_cam.get_component<camera>()->set_viewport({0.25, 0.25}, {0.5, 0.5});
-    //main_cam.get_component<camera>()->render_to_texture(fb);
 
     auto e = malt::create_entity();
 
