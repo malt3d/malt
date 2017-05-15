@@ -20,6 +20,7 @@
 #include <malt_render/components/camera.hpp>
 #include <rtk/texture/tex2d.hpp>
 #include <rtk/framebuffer.hpp>
+#include <malt_asset/assets.hpp>
 
 static std::chrono::milliseconds dt;
 
@@ -42,6 +43,9 @@ int main()
     using namespace rtk::literals;
     render_mod mod;
     mod.init();
+
+    auto res = malt::asset::load<std::string>("hello");
+    std::cout << res << '\n';
 
     auto main_cam = malt::create_entity();
     main_cam.add_component<malt::transform>();

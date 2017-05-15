@@ -8,5 +8,5 @@
 
 struct sample_module_def
 {
-    using components = malt::mp::list<class simple, class test_component>;
+    using components = malt::meta::list<class simple, class test_component>;
 };

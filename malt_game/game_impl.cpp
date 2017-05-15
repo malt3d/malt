@@ -16,15 +16,34 @@
 #include <malt_render/components/render_test.hpp>
 #include <malt_render/components/camera.hpp>
 
+#include <malt_asset/asset_mgr.hpp>
+#include <malt_asset/assets.hpp>
+
 struct game_config
 {
-    using module_defs = malt::mp::list<struct basic_module_def, struct render_module_def>;
-    using modules = malt::mp::map_t<malt::mp::mapper<malt::module>, module_defs>;
+    using module_defs = malt::meta::list<struct basic_module_def, struct render_module_def>;
+    using modules = malt::meta::map_t<malt::meta::mapper<malt::module>, module_defs>;
 };
 
 MALT_IMPLEMENT_GAME(game_config)
 
+class txt_loader
+{
+public:
+    using types = malt::meta::list<std::string>;
+
+    bool check(malt::meta::type<std::string>){
+        return true;
+    }
+
+    std::string load(const char* path){
+        return path;
+    }
+};
+
 malt::game<game_config> g;
+malt::assets::detail::asset_mgr<txt_loader> asset_mgr;
+
 namespace malt
 {
     namespace impl
@@ -58,6 +77,12 @@ namespace malt
         {
             auto& mgr = g.get_mgr<CompT>();
             mgr.for_each(fun);
+        }
+
+        template <class AssetT>
+        AssetT asset_adapter<AssetT>::load(const char* path)
+        {
+            return asset_mgr.load<AssetT>(path);
         }
 
         entity create_entity()
@@ -95,6 +120,8 @@ namespace malt
         template struct component_adapter<directional_light>;
         template struct component_adapter<point_light>;
         template struct component_adapter<camera>;
+
+        template struct asset_adapter<std::string>;
     }
 }
 

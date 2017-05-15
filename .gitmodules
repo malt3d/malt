@@ -20,3 +20,6 @@
 [submodule "malt_cmake"]
 	path = malt_cmake
 	url = git@github.com:malt3d/malt_cmake
+[submodule "malt_asset"]
+	path = malt_asset
+	url = git@github.com:FatihBAKIR/malt_asset
