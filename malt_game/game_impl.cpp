@@ -21,6 +21,8 @@
 #include <malt_asset/asset_mgr.hpp>
 #include <malt_asset/assets.hpp>
 #include <malt_asset/text_asset.hpp>
+#include <malt_render/shader_loader.hpp>
+#include <malt_render/mesh_loader.hpp>
 
 struct game_config
 {
@@ -31,7 +33,7 @@ struct game_config
 MALT_IMPLEMENT_GAME(game_config)
 
 malt::game<game_config> g;
-malt::asset::detail::asset_mgr<malt::txt_loader> asset_mgr;
+malt::asset::detail::asset_mgr<malt::txt_loader, malt::shader_loader, malt::mesh_loader> asset_mgr;
 
 namespace malt
 {
@@ -111,6 +113,10 @@ namespace malt
         template struct component_adapter<camera>;
 
         template struct asset_adapter<malt::text_asset>;
+
+        template struct asset_adapter<rtk::gl::program>;
+        template struct asset_adapter<rtk::geometry::mesh>;
+        template struct asset_adapter<rtk::gl::mesh>;
     }
 }
 
