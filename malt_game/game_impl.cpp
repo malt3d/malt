@@ -4,6 +4,8 @@
 
 #include <malt/game_impl.hpp>
 
+#include <malt/module.hpp>
+
 #include <malt_basic/basic_module.hpp>
 #include <malt_basic/components/transform.hpp>
 #include <malt_basic/components/fps_control.hpp>
@@ -18,6 +20,7 @@
 
 #include <malt_asset/asset_mgr.hpp>
 #include <malt_asset/assets.hpp>
+#include <malt_asset/text_asset.hpp>
 
 struct game_config
 {
@@ -27,22 +30,8 @@ struct game_config
 
 MALT_IMPLEMENT_GAME(game_config)
 
-class txt_loader
-{
-public:
-    using types = malt::meta::list<std::string>;
-
-    bool check(malt::meta::type<std::string>){
-        return true;
-    }
-
-    std::string load(const char* path){
-        return path;
-    }
-};
-
 malt::game<game_config> g;
-malt::assets::detail::asset_mgr<txt_loader> asset_mgr;
+malt::asset::detail::asset_mgr<malt::txt_loader> asset_mgr;
 
 namespace malt
 {
@@ -121,7 +110,7 @@ namespace malt
         template struct component_adapter<point_light>;
         template struct component_adapter<camera>;
 
-        template struct asset_adapter<std::string>;
+        template struct asset_adapter<malt::text_asset>;
     }
 }
 

@@ -1,4 +1,6 @@
+#include <malt_asset/text_asset.hpp>
 #include <iostream>
+
 #include <malt/entity.hpp>
 #include <malt/component_mgr.hpp>
 #include <malt/component.hpp>
@@ -44,8 +46,8 @@ int main()
     render_mod mod;
     mod.init();
 
-    auto res = malt::asset::load<std::string>("hello");
-    std::cout << res << '\n';
+    auto res = malt::asset::load<malt::text_asset>("hello.txt");
+    std::cout << res.c_str() << '\n';
 
     auto main_cam = malt::create_entity();
     main_cam.add_component<malt::transform>();
