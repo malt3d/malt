@@ -49,6 +49,9 @@ int main()
     auto res = malt::asset::load<malt::text_asset>("hello.txt");
     std::cout << res.c_str() << '\n';
 
+    auto img = malt::asset::load<rtk::graphics::texture2d>("test.jpg");
+    auto gl_img = malt::asset::load<rtk::gl::texture2d>("test.jpg");
+
     auto main_cam = malt::create_entity();
     main_cam.add_component<malt::transform>();
     main_cam.add_component<camera>();
