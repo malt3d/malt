@@ -9,22 +9,25 @@
 #include <malt_basic/basic_module.hpp>
 #include <malt_basic/components/transform.hpp>
 #include <malt_basic/components/fps_control.hpp>
+#include <malt_basic/components/rotate_comp.hpp>
+
+#include <malt_asset/asset_mgr.hpp>
+#include <malt_asset/assets.hpp>
+#include <malt_asset/text_asset.hpp>
 
 #include <malt_render/module.hpp>
+
 #include <malt_render/components/mesh_renderer.hpp>
 #include <malt_render/components/material.hpp>
 #include <malt_render/components/lights/directional_light.hpp>
 #include <malt_render/components/lights/point_light.hpp>
 #include <malt_render/components/render_test.hpp>
 #include <malt_render/components/camera.hpp>
-
-#include <malt_asset/asset_mgr.hpp>
-#include <malt_asset/assets.hpp>
-#include <malt_asset/text_asset.hpp>
 #include <malt_render/shader_loader.hpp>
 #include <malt_render/mesh_loader.hpp>
 #include <malt_render/texture_loader.hpp>
 #include <rtk/texture/tex2d.hpp>
+
 
 struct game_config
 {
@@ -100,12 +103,26 @@ namespace malt
             return !running;
         }
 
-        template struct msg_delivery<render(render_ctx)>;
+        // malt_core
         template struct msg_delivery<malt::init()>;
         template struct msg_delivery<malt::update()>;
 
+        // malt_basic
         template struct component_adapter<malt::transform>;
         template struct component_adapter<fps_control>;
+        template struct component_adapter<rotate_comp>;
+
+        // malt_asset
+        template struct asset_adapter<malt::text_asset>;
+
+        // malt_render
+        template struct msg_delivery<render(render_ctx)>;
+
+        template struct asset_adapter<rtk::gl::program>;
+        template struct asset_adapter<rtk::geometry::mesh>;
+        template struct asset_adapter<rtk::gl::mesh>;
+        template struct asset_adapter<rtk::graphics::texture2d>;
+        template struct asset_adapter<rtk::gl::texture2d>;
 
         template struct component_adapter<mesh_renderer>;
         template struct component_adapter<material>;
@@ -113,14 +130,6 @@ namespace malt
         template struct component_adapter<directional_light>;
         template struct component_adapter<point_light>;
         template struct component_adapter<camera>;
-
-        template struct asset_adapter<malt::text_asset>;
-
-        template struct asset_adapter<rtk::gl::program>;
-        template struct asset_adapter<rtk::geometry::mesh>;
-        template struct asset_adapter<rtk::gl::mesh>;
-        template struct asset_adapter<rtk::graphics::texture2d>;
-        template struct asset_adapter<rtk::gl::texture2d>;
     }
 }
 
