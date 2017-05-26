@@ -5,5 +5,21 @@
 	path = malt_basic
 	url = git@github.com:malt3d/malt_basic
 [submodule "malt_shaders"]
-    path = malt_shaders
+	path = malt_shaders
 	url = https://github.com/malt3d/malt_shaders
+[submodule "malt_tool"]
+	path = malt_tool
+	url = https://github.com/malt3d/malt_tool
+[submodule "malt_core"]
+	path = malt_core
+	url = git@github.com:malt3d/malt_core.git
+[submodule "malt_render"]
+	path = malt_render
+	url = git@github.com:malt3d/malt_render.git
+	branch = malt_modules
+[submodule "malt_cmake"]
+	path = malt_cmake
+	url = git@github.com:malt3d/malt_cmake
+[submodule "malt_asset"]
+	path = malt_asset
+	url = git@github.com:FatihBAKIR/malt_asset

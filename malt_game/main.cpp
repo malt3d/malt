@@ -1,32 +1,35 @@
+#include <malt_asset/text_asset.hpp>
 #include <iostream>
+
 #include <malt/entity.hpp>
 #include <malt/component_mgr.hpp>
 #include <malt/component.hpp>
 
-#include <sample/components/test.hpp>
-#include <sample/components/simple.hpp>
 #include <malt_basic/components/transform.hpp>
 
 #include <rtk/gl/mesh.hpp>
 #include <chrono>
+
+#include <malt_basic/input.hpp>
+#include <malt_basic/components/fps_control.hpp>
+
 #include <malt_render/messages.hpp>
 #include <malt_render/components/mesh_renderer.hpp>
 #include <malt_render/components/material.hpp>
-#include <malt/message.hpp>
 #include <malt_render/render_global.hpp>
-#include <malt_render/components/render_test.h>
-
-#include <malt_basic/input.hpp>
+#include <malt_render/components/render_test.hpp>
 #include <malt_render/components/lights/directional_light.hpp>
 #include <malt_render/components/camera.hpp>
-#include <malt_basic/components/fps_control.hpp>
-#include <malt_render/texture/tex2d.hpp>
+#include <rtk/texture/tex2d.hpp>
+#include <rtk/framebuffer.hpp>
+#include <malt_asset/assets.hpp>
+#include <malt_basic/components/rotate_comp.hpp>
 
 static std::chrono::milliseconds dt;
 
 namespace malt
 {
-namespace time
+namespace impl
 {
     float get_delta_time()
     {
@@ -37,23 +40,35 @@ namespace time
 
 int main()
 {
+    using namespace rtk;
+    using namespace malt;
     using namespace std::chrono_literals;
+    using namespace rtk::literals;
     render_mod mod;
     mod.init();
 
+    auto res = malt::asset::load<malt::text_asset>("hello.txt");
+    std::cout << res.c_str() << '\n';
+
+    auto img = malt::asset::load<rtk::graphics::texture2d>("test.jpg");
+    auto gl_img = malt::asset::load<rtk::gl::texture2d>("test.jpg");
+
     auto main_cam = malt::create_entity();
     main_cam.add_component<malt::transform>();
-    auto c = main_cam.add_component<camera>();
+    main_cam.add_component<camera>();
     main_cam.add_component<fps_control>();
 
-    auto e = malt::create_entity();
+    auto render_t = gl::create_texture({800_px, 600_px}, graphics::pixel_format::rgba_byte);
+    auto fb = gl::framebuffer(render_t);
 
     auto light = malt::create_entity();
     light.add_component<malt::transform>();
     light.add_component<directional_light>();
 
-    auto t = e.add_component<malt::transform>();
+    auto e = malt::create_entity();
+    e.add_component<malt::transform>();
     e.add_component<render_test>();
+    e.add_component<rotate_comp>();
 
     using clock = std::chrono::high_resolution_clock;
 

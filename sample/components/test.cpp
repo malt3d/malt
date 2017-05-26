@@ -4,7 +4,7 @@
 
 #include "test.hpp"
 #include <iostream>
-#include <malt/component_mgr.cpp>
+#include <malt/component_mgr_impl.hpp>
 
 void test_component::Handle(int)
 {
