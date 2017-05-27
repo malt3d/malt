@@ -70,6 +70,13 @@ int main()
     e.add_component<render_test>();
     e.add_component<rotate_comp>();
 
+    auto child = malt::create_entity();
+    auto c_trans = child.add_component<malt::transform>();
+    c_trans->set_scale(glm::vec3{0.25, 0.25, 0.25});
+    c_trans->translate(glm::vec3{0, 5, 0});
+    c_trans->set_parent(e.get_component<malt::transform>());
+    child.add_component<render_test>();
+
     using clock = std::chrono::high_resolution_clock;
 
     auto b = clock::now();
