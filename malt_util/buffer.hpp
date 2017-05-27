@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <iterator>
+
 namespace malt
 {
     template <class ElemT>
@@ -52,6 +54,12 @@ namespace malt
                 ++elem;
                 return *this;
             }
+
+            ElemT* operator->()
+            {
+                return elem;
+            }
+
             ElemT& operator*()
             {
                 return *elem;

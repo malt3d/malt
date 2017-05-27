@@ -35,6 +35,8 @@ namespace impl
     {
         return dt.count() / 1000.f;
     }
+
+    void print_diagnostics();
 }
 }
 
@@ -50,6 +52,8 @@ int main()
     auto res = malt::asset::load<malt::text_asset>("hello.txt");
     std::cout << res.c_str() << '\n';
 
+    malt::impl::print_diagnostics();
+
     auto img = malt::asset::load<rtk::graphics::texture2d>("test.jpg");
     auto gl_img = malt::asset::load<rtk::gl::texture2d>("test.jpg");
 
@@ -57,6 +61,13 @@ int main()
     main_cam.add_component<malt::transform>();
     main_cam.add_component<camera>();
     main_cam.add_component<fps_control>();
+
+    std::cout << "##########\n";
+    for (auto& comp : malt::get_components<malt::component>())
+    {
+        std::cout << "yay\n";
+    }
+    std::cout << "##########\n";
 
     auto render_t = gl::create_texture({800_px, 600_px}, graphics::pixel_format::rgba_byte);
     auto fb = gl::framebuffer(render_t);

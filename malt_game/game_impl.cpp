@@ -3,6 +3,7 @@
  */
 
 #include <malt/game_impl.hpp>
+#include <malt/component.hpp>
 
 #include <malt/module.hpp>
 
@@ -27,11 +28,20 @@
 #include <malt_render/mesh_loader.hpp>
 #include <malt_render/texture_loader.hpp>
 #include <rtk/texture/tex2d.hpp>
+#include <malt/module_impl.hpp>
+#include <malt/component_mgr_impl.hpp>
 
+struct core_module_def
+{
+    using components = malt::meta::list<class malt::component>;
+};
+
+MALT_IMPLEMENT_COMP(malt::component);
+MALT_IMPLEMENT_MODULE(core_module_def);
 
 struct game_config
 {
-    using module_defs = malt::meta::list<struct basic_module_def, struct render_module_def>;
+    using module_defs = malt::meta::list<struct basic_module_def, struct render_module_def, struct core_module_def>;
     using modules = malt::meta::map_t<malt::meta::mapper<malt::module>, module_defs>;
 };
 
@@ -59,7 +69,7 @@ namespace malt
         template <class CompT>
         component_mgr<CompT>& component_adapter<CompT>::get_mgr()
         {
-            return g.get_mgr<CompT>();
+            return g.get_mgr(meta::type<CompT>{});
         }
 
         template <class CompT>
@@ -71,8 +81,17 @@ namespace malt
         template <class CompT>
         void component_adapter<CompT>::for_components(std::function<void(CompT*)> fun)
         {
-            auto& mgr = g.get_mgr<CompT>();
-            mgr.for_each(fun);
+            auto rng = g.get_components(meta::type<CompT>{});
+            for (CompT& c : rng)
+            {
+                fun(&c);
+            }
+        }
+
+        template <class CompT>
+        erased_range<CompT, component> component_adapter<CompT>::get_components()
+        {
+            return g.get_components(meta::type<CompT>{});
         }
 
         template <class AssetT>
@@ -84,6 +103,11 @@ namespace malt
         entity create_entity()
         {
             return g.create_entity();
+        }
+
+        void print_diagnostics()
+        {
+            g.diagnostics();
         }
 
         void post_frame()
@@ -104,6 +128,7 @@ namespace malt
         }
 
         // malt_core
+        template struct component_adapter<malt::component>;
         template struct msg_delivery<malt::init()>;
         template struct msg_delivery<malt::update()>;
 
