@@ -127,6 +127,11 @@ namespace malt
             return !running;
         }
 
+        malt::component* add_component(const comp_t_id& comp_type, entity_id e_id)
+        {
+            return g.erased_add_component(comp_type, e_id);
+        }
+
         // malt_core
         template struct component_adapter<malt::component>;
         template struct msg_delivery<malt::init()>;

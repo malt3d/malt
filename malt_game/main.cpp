@@ -70,7 +70,12 @@ int main()
     std::cout << "##########\n";
     for (auto& comp : malt::get_components<malt::component>())
     {
-        std::cout << "yay\n";
+        auto reflected = reflect(&comp);
+        std::cout << reflected->get_name() << " yay\n";
+        for (auto base : reflected->get_base_components())
+        {
+            std::cout << " + " << base->get_name() << '\n';
+        }
     }
     std::cout << "##########\n";
 
@@ -78,7 +83,9 @@ int main()
     auto fb = gl::framebuffer(render_t);
 
     auto light = malt::create_entity();
-    light.add_component<malt::transform>();
+    malt::add_component("malt::transform", 2);
+    auto lt = light.get_component<malt::transform>();
+    assert(lt);
     light.add_component<directional_light>();
 
     auto e = malt::create_entity();
