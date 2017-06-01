@@ -42,6 +42,7 @@ namespace impl
 
 int main()
 {
+    std::cout << "Initializing...\n";
     using namespace rtk;
     using namespace malt;
     using namespace std::chrono_literals;
@@ -49,14 +50,18 @@ int main()
     render_mod mod;
     mod.init();
 
+    std::cout << "Asset loading...\n";
     auto res = malt::asset::load<malt::text_asset>("hello.txt");
     std::cout << res.c_str() << '\n';
 
     malt::impl::print_diagnostics();
 
+    std::cout << "Loading texture...\n";
     auto img = malt::asset::load<rtk::graphics::texture2d>("test.jpg");
+    std::cout << "Loading GL texture...\n";
     auto gl_img = malt::asset::load<rtk::gl::texture2d>("test.jpg");
 
+    std::cout << "Creating entity...\n";
     auto main_cam = malt::create_entity();
     main_cam.add_component<malt::transform>();
     main_cam.add_component<camera>();
@@ -93,6 +98,7 @@ int main()
     auto b = clock::now();
     auto prev_frame = clock::now() - 16ms;
 
+    std::cout << "Starting loop...\n";
     int f = 0;
     while (!malt::is_terminated())
     {
