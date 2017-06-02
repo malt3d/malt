@@ -13,15 +13,11 @@
 #include <malt_basic/input.hpp>
 #include <malt_basic/components/fps_control.hpp>
 
-#include <malt_render/messages.hpp>
-#include <malt_render/components/mesh_renderer.hpp>
-#include <malt_render/components/material.hpp>
 #include <malt_render/render_global.hpp>
 #include <malt_render/components/render_test.hpp>
 #include <malt_render/components/lights/directional_light.hpp>
 #include <malt_render/components/camera.hpp>
-#include <rtk/texture/tex2d.hpp>
-#include <rtk/framebuffer.hpp>
+
 #include <malt_asset/assets.hpp>
 #include <malt_basic/components/rotate_comp.hpp>
 
@@ -43,44 +39,18 @@ namespace impl
 int main()
 {
     std::cout << "Initializing...\n";
-    using namespace rtk;
-    using namespace malt;
     using namespace std::chrono_literals;
-    using namespace rtk::literals;
+
     render_mod mod;
     mod.init();
 
-    std::cout << "Asset loading...\n";
-    auto res = malt::asset::load<malt::text_asset>("hello.txt");
-    std::cout << res.c_str() << '\n';
-
     malt::impl::print_diagnostics();
-
-    std::cout << "Loading texture...\n";
-    auto img = malt::asset::load<rtk::graphics::texture2d>("test.jpg");
-    std::cout << "Loading GL texture...\n";
-    auto gl_img = malt::asset::load<rtk::gl::texture2d>("test.jpg");
 
     std::cout << "Creating entity...\n";
     auto main_cam = malt::create_entity();
     main_cam.add_component<malt::transform>();
     main_cam.add_component<camera>();
     main_cam.add_component<fps_control>();
-
-    std::cout << "##########\n";
-    for (auto& comp : malt::get_components<malt::component>())
-    {
-        auto reflected = reflect(&comp);
-        std::cout << reflected->get_name() << " yay\n";
-        for (auto base : reflected->get_base_components())
-        {
-            std::cout << " + " << base->get_name() << '\n';
-        }
-    }
-    std::cout << "##########\n";
-
-    auto render_t = gl::create_texture({800_px, 600_px}, graphics::pixel_format::rgba_byte);
-    auto fb = gl::framebuffer(render_t);
 
     auto light = malt::create_entity();
     malt::add_component("malt::transform", 2);

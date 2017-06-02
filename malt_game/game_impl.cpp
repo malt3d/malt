@@ -2,10 +2,9 @@
  * DO NOT EDIT MANUALLY
  */
 
+#include <game_impl.hpp>
+#include <core_module.hpp>
 #include <malt/game_impl.hpp>
-#include <malt/component.hpp>
-
-#include <malt/module.hpp>
 
 #include <malt_basic/basic_module.hpp>
 #include <malt_basic/components/transform.hpp>
@@ -30,20 +29,6 @@
 #include <rtk/texture/tex2d.hpp>
 #include <malt/module_impl.hpp>
 #include <malt/component_mgr_impl.hpp>
-
-struct core_module_def
-{
-    using components = malt::meta::list<class malt::component>;
-};
-
-MALT_IMPLEMENT_COMP(malt::component);
-MALT_IMPLEMENT_MODULE(core_module_def);
-
-struct game_config
-{
-    using module_defs = malt::meta::list<struct basic_module_def, struct render_module_def, struct core_module_def>;
-    using modules = malt::meta::map_t<malt::meta::mapper<malt::module>, module_defs>;
-};
 
 MALT_IMPLEMENT_GAME(game_config)
 
@@ -76,16 +61,6 @@ namespace malt
         void component_adapter<CompT>::destroy(CompT* c)
         {
             g.destroy_comp(c);
-        }
-
-        template <class CompT>
-        void component_adapter<CompT>::for_components(std::function<void(CompT*)> fun)
-        {
-            auto rng = g.get_components(meta::type<CompT>{});
-            for (CompT& c : rng)
-            {
-                fun(&c);
-            }
         }
 
         template <class CompT>

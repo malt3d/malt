@@ -6,10 +6,13 @@ set(CMAKE_CXX_STANDARD 14)
 
 include(Malt)
 
-set(SOURCE_FILES main.cpp game_impl.cpp)
+set(SOURCE_FILES main.cpp game_impl.cpp game_impl.hpp core_module.hpp core_module.cpp)
 add_executable(malt_game ${SOURCE_FILES})
 
+target_include_directories(malt_game PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+
 malt_init()
+
 malt_add_module(malt_game malt_core)
 malt_add_module(malt_game malt_basic)
 malt_add_module(malt_game malt_render)
