@@ -21,6 +21,8 @@
 #include <malt_asset/assets.hpp>
 #include <malt_basic/components/rotate_comp.hpp>
 
+#include <yaml-cpp/yaml.h>
+
 static std::chrono::milliseconds dt;
 
 namespace malt
@@ -51,6 +53,11 @@ int main()
     main_cam.add_component<malt::transform>();
     main_cam.add_component<camera>();
     main_cam.add_component<fps_control>();
+
+    YAML::Node node;
+    node["camera"] = YAML::Node{};
+    malt::serialize(node["camera"], *main_cam.get_component<camera>());
+    std::cout << node << '\n';
 
     auto light = malt::create_entity();
     malt::add_component("malt::transform", 2);
