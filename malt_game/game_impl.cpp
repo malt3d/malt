@@ -29,11 +29,21 @@
 #include <rtk/texture/tex2d.hpp>
 #include <malt/module_impl.hpp>
 #include <malt/component_mgr_impl.hpp>
+#include <malt_anim/module.hpp>
+#include <malt_anim/skinned_mesh.hpp>
+#include <malt_anim/skinned_mesh_loader.hpp>
+#include <malt_anim/components/skinned_mesh_renderer.hpp>
 
 MALT_IMPLEMENT_GAME(game_config)
 
 malt::game<game_config> g;
-malt::asset::detail::asset_mgr<malt::txt_loader, malt::shader_loader, malt::mesh_loader, malt::texture_loader> asset_mgr;
+malt::asset::detail::asset_mgr<
+        malt::txt_loader,
+        malt::shader_loader,
+        malt::mesh_loader,
+        malt::texture_loader,
+        malt::skinned_mesh_loader
+> asset_mgr;
 
 namespace malt
 {
@@ -135,6 +145,9 @@ namespace malt
         template struct component_adapter<directional_light>;
         template struct component_adapter<point_light>;
         template struct component_adapter<camera>;
+
+        template struct component_adapter<malt::skinned_mesh_renderer>;
+        template struct asset_adapter<malt::skinned_mesh>;
     }
 }
 
