@@ -51,11 +51,11 @@ namespace malt
             g.broadcast(MsgT{}, args...);
         }
 
-        template <class CompT>
+        /*template <class CompT>
         component_mgr<CompT>& component_adapter<CompT>::get_mgr()
         {
             return g.get_mgr(meta::type<CompT>{});
-        }
+        }*/
 
         template <class CompT>
         void component_adapter<CompT>::destroy(CompT* c)
@@ -80,6 +80,43 @@ namespace malt
             return g.create_entity();
         }
 
+        void destroy(entity e)
+        {
+            g.destroy_entity(e);
+        }
+
+        template <class CompT>
+        CompT* component_adapter<CompT>::add_component(entity_id id)
+        {
+            g.notify_add_comp<CompT>(id);
+            return g.get_mgr(meta::type<CompT>{}).add_component(id);
+        }
+
+        template <class CompT>
+        CompT* component_adapter<CompT>::get_component(entity_id id)
+        {
+            return g.get_mgr(meta::type<CompT>{}).get_component(id);
+        }
+
+        std::vector<malt::component*> components_of(entity id)
+        {
+            auto res = g.get_component_map(id);
+
+            constexpr auto len = g.get_component_type_count();
+
+            std::vector<malt::component*> result;
+            result.reserve(res.count());
+
+            for (int i = 0; i < len; ++i)
+            {
+                if (res.test(i)) {
+                    result.push_back(g.erased_get_component(i, detail::get_id(id)));
+                }
+            }
+
+            return result;
+        }
+
         void print_diagnostics()
         {
             g.diagnostics();
@@ -102,9 +139,9 @@ namespace malt
             return !running;
         }
 
-        malt::component* add_component(const comp_t_id& comp_type, entity_id e_id)
+        malt::component* add_component(size_t comp_hash, entity_id e_id)
         {
-            return g.erased_add_component(comp_type, e_id);
+            return g.hash_add_component(comp_hash, e_id);
         }
 
         // malt_core

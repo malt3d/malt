@@ -55,8 +55,8 @@ int main()
     main_cam.add_component<fps_control>();
 
     YAML::Node node;
-    node["camera"] = YAML::Node{};
-    malt::serialize(node["camera"], *main_cam.get_component<camera>());
+    node["main_cam"] = YAML::Node{};
+    malt::serialize(node["main_cam"], main_cam);
     std::cout << node << '\n';
 
     auto light = malt::create_entity();
