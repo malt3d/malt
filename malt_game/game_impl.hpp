@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include <malt/list.hpp>
+#include <malt/meta.hpp>
 #include <malt/module.hpp>
-#include <malt/game.hpp>
+#include <malt/detail/game.hpp>
 
 struct game_config
 {

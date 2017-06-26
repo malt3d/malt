@@ -3,7 +3,7 @@
 //
 
 #include "simple.hpp"
-#include <malt/component_mgr_impl.hpp>
+#include <malt/detail/component_mgr_impl.hpp>
 #include <iostream>
 
 void simple::Handle(malt::init)

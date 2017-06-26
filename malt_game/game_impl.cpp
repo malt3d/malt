@@ -4,7 +4,7 @@
 
 #include <game_impl.hpp>
 #include <core_module.hpp>
-#include <malt/game_impl.hpp>
+#include <malt/detail/game_impl.hpp>
 
 #include <malt_basic/basic_module.hpp>
 #include <malt_basic/components/transform.hpp>
@@ -27,8 +27,7 @@
 #include <malt_render/mesh_loader.hpp>
 #include <malt_render/texture_loader.hpp>
 #include <rtk/texture/tex2d.hpp>
-#include <malt/module_impl.hpp>
-#include <malt/component_mgr_impl.hpp>
+#include <malt/detail/component_mgr_impl.hpp>
 
 MALT_IMPLEMENT_GAME(game_config)
 
@@ -80,8 +79,26 @@ namespace malt
             return g.get_entities();
         };
 
+        template <class FunT>
+        void for_each_component(entity id, const FunT& fun)
+        {
+            auto res = g.get_component_map(id);
+            constexpr auto len = g.get_component_type_count();
+            for (int i = 0; i < len; ++i)
+            {
+                if (res.test(i)) {
+                    fun(g.erased_get_component(i, detail::get_id(id)));
+                }
+            }
+        }
+
         void destroy(entity e)
         {
+            for_each_component(e, [e_id = detail::get_id(e)](component* comp){
+                auto id = dynamic_reflect(comp)->get_index();
+                g.erased_destory_component(id, e_id);
+            });
+
             g.destroy_entity(e);
         }
 
@@ -150,9 +167,9 @@ namespace malt
             return !running;
         }
 
-        malt::component* add_component(size_t comp_hash, entity_id e_id)
+        malt::component* add_component(size_t comp_hash, entity e)
         {
-            return g.hash_add_component(comp_hash, e_id);
+            return g.hash_add_component(comp_hash, detail::get_id(e));
         }
 
         // malt_core

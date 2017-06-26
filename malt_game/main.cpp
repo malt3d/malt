@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include <malt/entity.hpp>
-#include <malt/component_mgr.hpp>
+#include <malt/detail/component_mgr.hpp>
 #include <malt/component.hpp>
 
 #include <malt_basic/components/transform.hpp>
@@ -50,41 +50,41 @@ int main()
     malt::impl::print_diagnostics();
 
     std::cout << "Creating entity...\n";
-    auto main_cam = malt::create_entity();
+    auto main_cam = malt::create_entity("camera");
     main_cam.add_component<malt::transform>();
     main_cam.add_component<camera>();
     main_cam.add_component<fps_control>();
 
-    YAML::Node node;
-    node["main_cam"] = YAML::Node{};
-    malt::serialize(node["main_cam"], main_cam);
-    std::cout << node << '\n';
-
-    auto light = malt::create_entity();
-    malt::add_component("malt::transform", 2);
+    auto light = malt::create_entity("directional light");
+    malt::add_component("malt::transform", light);
     auto lt = light.get_component<malt::transform>();
     assert(lt);
     light.add_component<directional_light>();
 
-    auto e = malt::create_entity();
-    e.set_name("big teapot");
+    auto e = malt::create_entity("big teapot");
     e.add_component<malt::transform>();
     e.add_component<render_test>();
     e.add_component<rotate_comp>();
 
-    auto child = malt::create_entity();
-    child.set_name("small teapot");
+    auto child = malt::create_entity("small teapot");
     auto c_trans = child.add_component<malt::transform>();
     c_trans->set_scale(glm::vec3{0.25, 0.25, 0.25});
     c_trans->translate(glm::vec3{0, 5, 0});
     c_trans->set_parent(e.get_component<malt::transform>());
     child.add_component<render_test>();
 
+    YAML::Node scene;
+    scene["entities"] = YAML::Node{};
     for (auto id : malt::impl::get_entities())
     {
         malt::entity e(id);
-        std::cout << "entity " << e.get_name() << '\n';
+        YAML::Node n;
+        malt::serialize(n, e);
+        scene["entities"].push_back(n);
     }
+
+    std::ofstream s_file("scene.maltscene");
+    s_file << scene;
 
     using clock = std::chrono::high_resolution_clock;
 
