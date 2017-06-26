@@ -51,12 +51,6 @@ namespace malt
             g.broadcast(MsgT{}, args...);
         }
 
-        /*template <class CompT>
-        component_mgr<CompT>& component_adapter<CompT>::get_mgr()
-        {
-            return g.get_mgr(meta::type<CompT>{});
-        }*/
-
         template <class CompT>
         void component_adapter<CompT>::destroy(CompT* c)
         {
@@ -80,9 +74,26 @@ namespace malt
             return g.create_entity();
         }
 
+        erased_range<entity_id, entity_id>
+        get_entities()
+        {
+            return g.get_entities();
+        };
+
         void destroy(entity e)
         {
             g.destroy_entity(e);
+        }
+
+        const std::string&
+        get_name(entity_id id)
+        {
+            return g.get_name(id);
+        }
+
+        void set_name(entity_id id, std::string name)
+        {
+            g.set_name(id, std::move(name));
         }
 
         template <class CompT>

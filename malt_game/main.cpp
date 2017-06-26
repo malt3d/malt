@@ -22,6 +22,7 @@
 #include <malt_basic/components/rotate_comp.hpp>
 
 #include <yaml-cpp/yaml.h>
+#include <malt/serialization.hpp>
 
 static std::chrono::milliseconds dt;
 
@@ -66,16 +67,24 @@ int main()
     light.add_component<directional_light>();
 
     auto e = malt::create_entity();
+    e.set_name("big teapot");
     e.add_component<malt::transform>();
     e.add_component<render_test>();
     e.add_component<rotate_comp>();
 
     auto child = malt::create_entity();
+    child.set_name("small teapot");
     auto c_trans = child.add_component<malt::transform>();
     c_trans->set_scale(glm::vec3{0.25, 0.25, 0.25});
     c_trans->translate(glm::vec3{0, 5, 0});
     c_trans->set_parent(e.get_component<malt::transform>());
     child.add_component<render_test>();
+
+    for (auto id : malt::impl::get_entities())
+    {
+        malt::entity e(id);
+        std::cout << "entity " << e.get_name() << '\n';
+    }
 
     using clock = std::chrono::high_resolution_clock;
 
