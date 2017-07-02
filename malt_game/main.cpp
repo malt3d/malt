@@ -1,29 +1,10 @@
-#include <malt_asset/text_asset.hpp>
 #include <iostream>
-
-#include <malt/entity.hpp>
-#include <malt/detail/component_mgr.hpp>
-#include <malt/component.hpp>
-
-#include <malt_basic/components/transform.hpp>
-
-#include <rtk/gl/mesh.hpp>
 #include <chrono>
 
-#include <malt_basic/input.hpp>
-#include <malt_basic/components/fps_control.hpp>
-
-#include <malt_render/render_global.hpp>
-#include <malt_render/components/render_test.hpp>
-#include <malt_render/components/lights/directional_light.hpp>
-#include <malt_render/components/camera.hpp>
-
+#include <malt/message.hpp>
 #include <malt_asset/assets.hpp>
-#include <malt_basic/components/rotate_comp.hpp>
-
-#include <yaml-cpp/yaml.h>
-#include <malt/serialization.hpp>
 #include <malt_basic/scene.hpp>
+#include <malt_render/render_global.hpp>
 
 static std::chrono::milliseconds dt;
 
