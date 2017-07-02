@@ -1,0 +1,97 @@
+entities:
+  - name: camera
+    components:
+      malt::transform:
+        m_parent:
+          entity_id: 0
+          comp_name: malt::transform
+        pos:
+          x: 0
+          y: 0
+          z: 0
+        rot:
+          w: 1
+          x: 0
+          y: 0
+          z: 0
+        scale:
+          x: 1
+          y: 1
+          z: 1
+      fps_control:
+        speed: 2
+      camera:
+        m_fov: 1.047198
+        m_aspect_ratio: 1.333333
+        m_near_plane: 0.1
+        m_far_plane: 100
+        m_viewport_pos:
+          x: 0
+          y: 0
+        m_viewport_size:
+          x: 1
+          y: 1
+  - name: directional light
+    components:
+      malt::transform:
+        m_parent:
+          entity_id: 0
+          comp_name: malt::transform
+        pos:
+          x: 0
+          y: 0
+          z: 0
+        rot:
+          w: 1
+          x: 0
+          y: 0
+          z: 0
+        scale:
+          x: 1
+          y: 1
+          z: 1
+      directional_light:
+        m_intensity:
+          x: 0.5
+          y: 0.5
+          z: 0.5
+  - name: big teapot
+    components:
+      malt::transform:
+        m_parent:
+          entity_id: 0
+          comp_name: malt::transform
+        pos:
+          x: 0
+          y: 0
+          z: 0
+        rot:
+          w: 1
+          x: 0
+          y: 0
+          z: 0
+        scale:
+          x: 1
+          y: 1
+          z: 1
+      render_test: ~
+  - name: small teapot
+    components:
+      malt::transform:
+        m_parent:
+          entity_id: 3
+          comp_name: malt::transform
+        pos:
+          x: 0
+          y: 3.5
+          z: 0
+        rot:
+          w: 1
+          x: 0
+          y: 0
+          z: 0
+        scale:
+          x: 0.25
+          y: 0.25
+          z: 0.25
+      render_test: ~
