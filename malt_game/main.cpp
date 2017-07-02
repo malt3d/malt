@@ -23,6 +23,7 @@
 
 #include <yaml-cpp/yaml.h>
 #include <malt/serialization.hpp>
+#include <malt_basic/scene.hpp>
 
 static std::chrono::milliseconds dt;
 
@@ -49,42 +50,8 @@ int main()
 
     malt::impl::print_diagnostics();
 
-    std::cout << "Creating entity...\n";
-    auto main_cam = malt::create_entity("camera");
-    main_cam.add_component<malt::transform>();
-    main_cam.add_component<camera>();
-    main_cam.add_component<fps_control>();
-
-    auto light = malt::create_entity("directional light");
-    malt::add_component("malt::transform", light);
-    auto lt = light.get_component<malt::transform>();
-    assert(lt);
-    light.add_component<directional_light>();
-
-    auto e = malt::create_entity("big teapot");
-    e.add_component<malt::transform>();
-    e.add_component<render_test>();
-    e.add_component<rotate_comp>();
-
-    auto child = malt::create_entity("small teapot");
-    auto c_trans = child.add_component<malt::transform>();
-    c_trans->set_scale(glm::vec3{0.25, 0.25, 0.25});
-    c_trans->translate(glm::vec3{0, 5, 0});
-    c_trans->set_parent(e.get_component<malt::transform>());
-    child.add_component<render_test>();
-
-    YAML::Node scene;
-    scene["entities"] = YAML::Node{};
-    for (auto id : malt::impl::get_entities())
-    {
-        malt::entity e(id);
-        YAML::Node n;
-        malt::serialize(n, e);
-        scene["entities"].push_back(n);
-    }
-
-    std::ofstream s_file("scene.maltscene");
-    s_file << scene;
+    auto scn = malt::asset::load<YAML::Node>("scene.maltscene");
+    malt::load_scene(scn);
 
     using clock = std::chrono::high_resolution_clock;
 

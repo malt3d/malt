@@ -172,6 +172,11 @@ namespace malt
             return g.hash_add_component(comp_hash, detail::get_id(e));
         }
 
+        malt::component* get_component(size_t comp_hash, entity e)
+        {
+            return g.hash_get_component(comp_hash, detail::get_id(e));
+        }
+
         // malt_core
         template struct component_adapter<malt::component>;
         template struct msg_delivery<malt::init()>;
@@ -184,6 +189,7 @@ namespace malt
 
         // malt_asset
         template struct asset_adapter<malt::text_asset>;
+        template struct asset_adapter<YAML::Node>;
 
         // malt_render
         template struct msg_delivery<render(render_ctx)>;
