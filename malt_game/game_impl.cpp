@@ -63,7 +63,7 @@ namespace malt
         }
 
         template <class AssetT>
-        AssetT asset_adapter<AssetT>::load(const char* path)
+        asset::asset_ptr<AssetT> asset_adapter<AssetT>::load(const char* path)
         {
             return asset_mgr.load<AssetT>(path);
         }

@@ -32,7 +32,7 @@ int main()
     malt::impl::print_diagnostics();
 
     auto scn = malt::asset::load<YAML::Node>("scene.maltscene");
-    malt::load_scene(scn);
+    malt::load_scene(*scn);
 
     using clock = std::chrono::high_resolution_clock;
 
