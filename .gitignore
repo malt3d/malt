@@ -81,3 +81,5 @@ fabric.properties
 .idea/
 malt_modules/
 .malt.json
+
+build/

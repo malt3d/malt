@@ -5,7 +5,7 @@ entities:
         m_parent:
           entity_id: 0
           comp_name: malt::transform
-        pos:
+        m_pos:
           x: 0
           y: 0
           z: 0
@@ -37,7 +37,7 @@ entities:
         m_parent:
           entity_id: 0
           comp_name: malt::transform
-        pos:
+        m_pos:
           x: 0
           y: 0
           z: 0
@@ -61,7 +61,7 @@ entities:
         m_parent:
           entity_id: 0
           comp_name: malt::transform
-        pos:
+        m_pos:
           x: 0
           y: 0
           z: 0
@@ -81,7 +81,7 @@ entities:
         m_parent:
           entity_id: 3
           comp_name: malt::transform
-        pos:
+        m_pos:
           x: 0
           y: 3.5
           z: 0

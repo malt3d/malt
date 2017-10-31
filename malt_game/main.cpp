@@ -7,6 +7,7 @@
 #include <malt_render/render_global.hpp>
 
 static std::chrono::milliseconds dt;
+static uint64_t cur_frame;
 
 namespace malt
 {
@@ -15,6 +16,11 @@ namespace impl
     float get_delta_time()
     {
         return dt.count() / 1000.f;
+    }
+
+    uint64_t get_current_frame()
+    {
+        return cur_frame;
     }
 
     void print_diagnostics();
@@ -49,6 +55,7 @@ int main()
         mod.update();
         malt::impl::post_frame();
         f++;
+        cur_frame++;
     }
 
     mod.destruct();

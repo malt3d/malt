@@ -4,7 +4,7 @@ project(malt)
 set(MALT_BUILD_IN_SOURCE True)
 
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/malt_modules/")
-list(APPEND CMAKE_PREFIX_PATH "C:/malt_libs/")
+list(APPEND CMAKE_PREFIX_PATH "/home/fatih/rtk_build/")
 
 add_subdirectory(malt_core)
 add_subdirectory(malt_basic)

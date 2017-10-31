@@ -102,6 +102,11 @@ namespace malt
             g.destroy_entity(e);
         }
 
+        entity find_entity(const std::string& name)
+        {
+            return entity{g.find_entity(name)};
+        }
+
         const std::string&
         get_name(entity_id id)
         {
