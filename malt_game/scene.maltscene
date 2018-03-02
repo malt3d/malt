@@ -75,6 +75,7 @@ entities:
           y: 1
           z: 1
       render_test: ~
+      rotate_comp: ~
   - name: small teapot
     components:
       malt::transform:

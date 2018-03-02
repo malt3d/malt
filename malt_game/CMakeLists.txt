@@ -13,7 +13,7 @@ target_include_directories(malt_game PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 
 malt_init()
 
-malt_add_module(malt_game malt_core)
-malt_add_module(malt_game malt_basic)
-malt_add_module(malt_game malt_render)
-malt_add_module(malt_game malt_asset)
+malt_dependency(malt_game malt_core)
+malt_dependency(malt_game malt_basic)
+malt_dependency(malt_game malt_render)
+malt_dependency(malt_game malt_asset)
