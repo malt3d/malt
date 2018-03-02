@@ -22,6 +22,7 @@
 #include <malt_render/components/lights/directional_light.hpp>
 #include <malt_render/components/lights/point_light.hpp>
 #include <malt_render/components/render_test.hpp>
+#include <malt_render/components/cube_test.hpp>
 #include <malt_render/components/camera.hpp>
 #include <malt_render/shader_loader.hpp>
 #include <malt_render/mesh_loader.hpp>
@@ -198,6 +199,7 @@ namespace malt
 
         // malt_render
         template struct msg_delivery<render(render_ctx)>;
+        template struct msg_delivery<shadow(shadow_ctx)>;
 
         template struct asset_adapter<rtk::gl::program>;
         template struct asset_adapter<rtk::geometry::mesh>;
@@ -208,6 +210,7 @@ namespace malt
         template struct component_adapter<mesh_renderer>;
         template struct component_adapter<material>;
         template struct component_adapter<render_test>;
+        template struct component_adapter<cube_test>;
         template struct component_adapter<directional_light>;
         template struct component_adapter<point_light>;
         template struct component_adapter<camera>;
