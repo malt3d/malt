@@ -6,7 +6,13 @@ set(CMAKE_CXX_STANDARD 14)
 
 include(Malt)
 
-set(SOURCE_FILES main.cpp game_impl.cpp game_impl.hpp core_module.hpp core_module.cpp)
+set(SOURCE_FILES
+        main.cpp
+        game_impl.cpp
+        game_impl.hpp
+        core_module.hpp
+        core_module.cpp)
+
 add_executable(malt_game ${SOURCE_FILES})
 
 target_include_directories(malt_game PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
